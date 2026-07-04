@@ -4,7 +4,8 @@ const path = require("path");
 
 async function loadHandler(modPath) {
   const fullPath = path.resolve(__dirname, modPath);
-  const mod = await import(fullPath);
+  const fileUrl = "file:///" + fullPath.replace(/\\/g, "/");
+  const mod = await import(fileUrl);
   return mod.default;
 }
 
