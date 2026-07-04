@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import useInView from "../hooks/useInView";
 
 const testimonials = [
@@ -42,6 +42,12 @@ const testimonials = [
 export default function Testimoni() {
   const [active, setActive] = useState(0);
   const [ref, inView] = useInView({ threshold: 0.1 });
+  const scrollRef = useRef(null);
+
+  const handleThumbClick = (i) => {
+    setActive(i);
+    scrollRef.current?.scrollTo({ left: i * 120, behavior: "smooth" });
+  };
 
   return (
     <section id="testimoni" className="py-24 bg-white dark:bg-gray-900 relative overflow-hidden">
@@ -66,8 +72,8 @@ export default function Testimoni() {
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-8 items-center">
-          <div className="lg:col-span-3 order-2 lg:order-1">
+        <div className="lg:grid lg:grid-cols-5 gap-8 items-center">
+          <div className="lg:col-span-3">
             <div className="relative min-h-[220px]">
               {testimonials.map((t, i) => (
                 <div
@@ -101,7 +107,7 @@ export default function Testimoni() {
               ))}
             </div>
 
-            <div className="flex items-center gap-2 mt-6">
+            <div className="flex items-center gap-2 mt-8">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
@@ -117,15 +123,36 @@ export default function Testimoni() {
                 {active + 1}/{testimonials.length}
               </span>
             </div>
-          </div>
 
-          <div className="lg:col-span-2 order-1 lg:order-2">
-            <div className="flex lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0">
+            <div ref={scrollRef} className="flex gap-2 mt-4 overflow-x-auto scrollbar-none lg:hidden -mx-4 px-4 pb-2">
               {testimonials.map((t, i) => (
                 <button
                   key={t.name}
                   onClick={() => setActive(i)}
-                  className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all duration-300 shrink-0 ${
+                  className={`flex items-center gap-2 p-2.5 rounded-xl border transition-all shrink-0 ${
+                    i === active
+                      ? "border-indigo-200 dark:border-indigo-600/40 bg-indigo-50/50 dark:bg-indigo-950/30"
+                      : "border-transparent bg-gray-50 dark:bg-gray-800/20"
+                  }`}
+                >
+                  <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${t.gradient} flex items-center justify-center text-white text-[9px] font-bold shrink-0`}>
+                    {t.initials}
+                  </div>
+                  <div className="text-left min-w-0">
+                    <p className="text-[11px] font-semibold text-gray-900 dark:text-white truncate">{t.name}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden lg:block lg:col-span-2">
+            <div className="flex flex-col gap-2">
+              {testimonials.map((t, i) => (
+                <button
+                  key={t.name}
+                  onClick={() => setActive(i)}
+                  className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all duration-300 ${
                     i === active
                       ? "border-indigo-200 dark:border-indigo-600/40 bg-indigo-50/50 dark:bg-indigo-950/30"
                       : "border-transparent hover:bg-gray-50 dark:hover:bg-gray-800/30"
