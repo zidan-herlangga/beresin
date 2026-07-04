@@ -84,12 +84,12 @@ const defaultData = {
       { name: "Aldo Moroseto", role: "Lead Developer", initials: "AM", gradient: "from-purple-500 to-pink-500" },
     ],
     portofolio: [
-      { title: "Aplikasi Manajemen Inventaris", category: "Programming", desc: "Sistem informasi stok barang berbasis web" },
-      { title: "Makalah Ekonomi Kreatif", category: "Makalah", desc: "Analisis dampak ekonomi kreatif di Indonesia" },
-      { title: "Desain UI/UX Aplikasi", category: "Desain", desc: "Mobile app design untuk startup edukasi" },
-      { title: "Video Company Profile", category: "Video", desc: "Video promosi perusahaan teknologi" },
-      { title: "Aplikasi Kasir Restoran", category: "Programming", desc: "Desktop app kasir dengan laporan harian" },
-      { title: "Review Jurnal Internasional", category: "Jurnal", desc: "Review 10 jurnal tentang AI dalam pendidikan" },
+      { title: "Aplikasi Manajemen Inventaris", category: "Programming", desc: "Sistem informasi stok barang berbasis web", image: "" },
+      { title: "Makalah Ekonomi Kreatif", category: "Makalah", desc: "Analisis dampak ekonomi kreatif di Indonesia", image: "" },
+      { title: "Desain UI/UX Aplikasi", category: "Desain", desc: "Mobile app design untuk startup edukasi", image: "" },
+      { title: "Video Company Profile", category: "Video", desc: "Video promosi perusahaan teknologi", image: "" },
+      { title: "Aplikasi Kasir Restoran", category: "Programming", desc: "Desktop app kasir dengan laporan harian", image: "" },
+      { title: "Review Jurnal Internasional", category: "Jurnal", desc: "Review 10 jurnal tentang AI dalam pendidikan", image: "" },
     ],
     garansi: [
       { title: "Tepat Waktu", desc: "Tugas selesai sebelum deadline" },
@@ -112,9 +112,9 @@ const defaultData = {
       { q: "Apakah bisa revisi?", a: "Bisa! Setiap paket sudah termasuk revisi. Kami pastikan kamu puas." },
     ],
     blog: [
-      { title: "Tips Mengerjakan Skripsi dalam 3 Bulan", tag: "Tips", date: "15 Mar 2026", excerpt: "Panduan praktis menyelesaikan skripsi tepat waktu tanpa stres berlebihan." },
-      { title: "5 Aplikasi AI yang Bantu Tugas Kuliah", tag: "Teknologi", date: "10 Feb 2026", excerpt: "Manfaatkan AI untuk membantu riset dan penulisan tugas kuliahmu." },
-      { title: "Cara Membuat Makalah yang Baik", tag: "Panduan", date: "5 Jan 2026", excerpt: "Struktur dan tips menulis makalah yang benar agar mendapat nilai A." },
+      { title: "Tips Mengerjakan Skripsi dalam 3 Bulan", slug: "tips-mengerjakan-skripsi-dalam-3-bulan", tag: "Tips", date: "15 Mar 2026", excerpt: "Panduan praktis menyelesaikan skripsi tepat waktu tanpa stres berlebihan.", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80", content: "<p>Skripsi sering menjadi momok bagi mahasiswa semester akhir. Namun dengan strategi yang tepat, kamu bisa menyelesaikannya dalam 3 bulan.</p><h2>1. Tentukan Topik di Bulan Pertama</h2><p>Pilih topik yang kamu kuasai dan sesuai dengan bidang studimu. Konsultasikan dengan dosen pembimbing sejak awal.</p><h2>2. Bab 1-3 di Bulan Kedua</h2><p>Fokus pada proposal skripsi. Cari referensi minimal 20 jurnal terbaru untuk landasan teori yang kuat.</p><h2>3. Bab 4-5 dan Sidang di Bulan Ketiga</h2><p>Setelah proposal ACC, langsung olah data dan tulis hasil penelitian. Jangan lupa konsultasi rutin setiap minggu.</p><h2>Tips Tambahan</h2><ul><li>Gunakan Mendeley/Zotero untuk referensi</li><li>Backup data setiap hari</li><li>Istirahat cukup, jangan lembur berlebihan</li></ul><p>Dengan perencanaan yang matang, skripsi 3 bulan bukan mimpi!</p>" },
+      { title: "5 Aplikasi AI yang Bantu Tugas Kuliah", slug: "5-aplikasi-ai-yang-bantu-tugas-kuliah", tag: "Teknologi", date: "10 Feb 2026", excerpt: "Manfaatkan AI untuk membantu riset dan penulisan tugas kuliahmu.", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80", content: "<p>Kecerdasan buatan (AI) kini bisa menjadi asisten belajarmu. Berikut 5 aplikasi AI yang wajib dicoba:</p><h2>1. ChatGPT</h2><p>Asisten virtual serbaguna untuk brainstorming, menjelaskan konsep rumit, dan membantu struktur penulisan.</p><h2>2. Perplexity AI</h2><p>Mesin pencari berbasis AI yang memberikan jawaban lengkap dengan sumber referensi terpercaya.</p><h2>3. Grammarly</h2><p>Koreksi tata bahasa Inggris, perbaiki gaya penulisan, dan deteksi plagiarisme.</p><h2>4. Claude AI</h2><p>Cocok untuk analisis dokumen panjang dan membantu review jurnal secara mendalam.</p><h2>5. Consensus</h2><p>Mesin pencari khusus untuk jurnal ilmiah. Dapatkan ringkasan penelitian terbaru.</p><p>Gunakan AI secara bijak dan etis ya! AI adalah alat bantu, bukan pengganti pemikiranmu.</p>" },
+      { title: "Cara Membuat Makalah yang Baik", slug: "cara-membuat-makalah-yang-baik", tag: "Panduan", date: "5 Jan 2026", excerpt: "Struktur dan tips menulis makalah yang benar agar mendapat nilai A.", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80", content: "<p>Makalah yang baik punya struktur jelas dan argumen yang kuat. Simak panduan berikut:</p><h2>1. Tentukan Topik dan Tujuan</h2><p>Pastikan topik spesifik dan memiliki cukup referensi. Buat outline sebelum mulai menulis.</p><h2>2. Struktur Makalah yang Benar</h2><ul><li><strong>Pendahuluan</strong>: Latar belakang, rumusan masalah, tujuan</li><li><strong>Kajian Teori</strong>: Landasan teori relevan</li><li><strong>Pembahasan</strong>: Analisis dan argumen</li><li><strong>Penutup</strong>: Kesimpulan dan saran</li><li><strong>Daftar Pustaka</strong>: Referensi lengkap</li></ul><h2>3. Tips Menulis</h2><ul><li>Gunakan bahasa formal dan baku</li><li>Setiap paragraf punya satu ide pokok</li><li>Sertakan kutipan dari sumber terpercaya</li><li>Cek ejaan dan tata bahasa</li></ul><p>Dengan mengikuti panduan ini, nilai A bukan lagi sekadar mimpi!</p>" },
     ],
   },
   layanan: {

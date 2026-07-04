@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^6.3.0",
+    "busboy": "^1.6.0",
+    "cloudinary": "^2.10.0",
     "concurrently": "^10.0.3",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
@@ -18,7 +21,8 @@
     "nodemailer": "^9.0.3",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1"
+    "react-router-dom": "^7.18.1",
+    "tinymce": "^8.7.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.2",

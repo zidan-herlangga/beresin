@@ -5,6 +5,7 @@ import { useTheme } from '../contexts/ThemeContext';
 const links = [
   { label: 'Beranda', to: '/' },
   { label: 'Layanan', to: '/layanan' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Cara Order', to: '/cara-order' },
   { label: 'Tentang', to: '/tentang' },
   { label: 'Kontak', to: '/kontak' },

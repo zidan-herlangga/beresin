@@ -8,7 +8,10 @@ export async function connectDB() {
   if (db) return db;
   if (!uri) return null;
   try {
-    client = new MongoClient(uri);
+    client = new MongoClient(uri, {
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
+    });
     await client.connect();
     db = client.db("beresin");
     return db;

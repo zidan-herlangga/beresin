@@ -31,7 +31,7 @@ const infoLinks = [
   { name: 'Cara Order', to: '/cara-order' },
   { name: 'Syarat & Ketentuan', action: 'syarat' },
   { name: 'Kebijakan Privasi', action: 'syarat' },
-  { name: 'Blog', to: '/' },
+  { name: 'Blog', to: '/blog' },
 ];
 
 const kontakData = [

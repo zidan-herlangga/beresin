@@ -134,3 +134,196 @@ h1, h2, h3, h4, h5, h6 {
 .animate-delay-500 { animation-delay: 0.5s; }
 .animate-delay-700 { animation-delay: 0.7s; }
 .animate-delay-1000 { animation-delay: 1s; }
+
+.blog-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #374151;
+}
+.dark .blog-content {
+  color: #d1d5db;
+}
+.blog-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.dark .blog-content h2 {
+  color: #f3f4f6;
+}
+.blog-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.dark .blog-content h3 {
+  color: #e5e7eb;
+}
+.blog-content h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #374151;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.dark .blog-content h4 {
+  color: #d1d5db;
+}
+.blog-content p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+.blog-content ul,
+.blog-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.blog-content ul {
+  list-style-type: disc;
+}
+.blog-content ol {
+  list-style-type: decimal;
+}
+.blog-content ul li,
+.blog-content ol li {
+  margin-bottom: 0.35rem;
+  line-height: 1.75;
+}
+.blog-content ul li::marker {
+  color: #6366f1;
+}
+.blog-content ol li::marker {
+  color: #6366f1;
+  font-weight: 600;
+}
+.blog-content strong {
+  color: #4f46e5;
+  font-weight: 700;
+}
+.dark .blog-content strong {
+  color: #818cf8;
+}
+.blog-content a {
+  color: #4f46e5;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s;
+}
+.blog-content a:hover {
+  color: #4338ca;
+}
+.dark .blog-content a {
+  color: #818cf8;
+}
+.dark .blog-content a:hover {
+  color: #a5b4fc;
+}
+.blog-content img {
+  border-radius: 0.75rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.dark .blog-content img {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.blog-content blockquote {
+  border-left: 4px solid #6366f1;
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  background: rgba(99,102,241,0.04);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #6b7280;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+.dark .blog-content blockquote {
+  color: #9ca3af;
+  border-left-color: #818cf8;
+  background: rgba(129,140,248,0.04);
+}
+.blog-content code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.85em;
+  background: #f3f4f6;
+  padding: 0.15em 0.4em;
+  border-radius: 0.35rem;
+  color: #dc2626;
+}
+.dark .blog-content code {
+  background: #1f2937;
+  color: #f87171;
+}
+.blog-content pre {
+  background: #1f2937;
+  color: #f3f4f6;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.blog-content pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+.dark .blog-content pre {
+  background: #111827;
+  border-color: rgba(255,255,255,0.06);
+}
+.blog-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+  margin: 2rem 0;
+}
+.dark .blog-content hr {
+  background: linear-gradient(to right, transparent, #374151, transparent);
+}
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+.blog-content th {
+  background: #f9fafb;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid #e5e7eb;
+  color: #111827;
+}
+.blog-content td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+}
+.dark .blog-content th {
+  background: #1f2937;
+  border-bottom-color: #374151;
+  color: #f3f4f6;
+}
+.dark .blog-content td {
+  border-bottom-color: #374151;
+  color: #d1d5db;
+}
+.blog-content tr:nth-child(even) td {
+  background: rgba(0,0,0,0.015);
+}
+.dark .blog-content tr:nth-child(even) td {
+  background: rgba(255,255,255,0.015);
+}

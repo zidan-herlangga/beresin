@@ -1,30 +1,31 @@
+import { Link } from "react-router-dom";
 import useInView from "../hooks/useInView";
 import { useContent } from "../hooks/useContent";
 
 const defaultArticles = [
   {
-    title: "5 Tips Biar Gak Panik Saat Deadline Mepet",
-    excerpt: "Deadline tugas besok? Tenang, ada cara biar kamu tetap produktif tanpa panik berlebihan.",
+    title: "Tips Mengerjakan Skripsi dalam 3 Bulan",
+    slug: "tips-mengerjakan-skripsi-dalam-3-bulan",
     tag: "Tips",
-    tagColor: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300",
-    gradient: "from-indigo-500 to-purple-500",
-    date: "15 Jun 2024",
+    date: "15 Mar 2026",
+    excerpt: "Panduan praktis menyelesaikan skripsi tepat waktu tanpa stres berlebihan.",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
   },
   {
-    title: "Cara Bikin Makalah Yang Bikin Dosen Terkesan",
-    excerpt: "Mau nilai A? Ikuti struktur dan tips menulis makalah yang benar biar dosen puas.",
-    tag: "Akademik",
-    tagColor: "bg-purple-100 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300",
-    gradient: "from-purple-500 to-pink-500",
-    date: "10 Jun 2024",
-  },
-  {
-    title: "Rekomendasi Tools AI Buat Bantu Tugas Kuliah",
-    excerpt: "Manfaatin AI buat bantu riset, nulis, dan coding. Tapi tetep pake etika ya!",
+    title: "5 Aplikasi AI yang Bantu Tugas Kuliah",
+    slug: "5-aplikasi-ai-yang-bantu-tugas-kuliah",
     tag: "Teknologi",
-    tagColor: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300",
-    gradient: "from-cyan-500 to-teal-500",
-    date: "5 Jun 2024",
+    date: "10 Feb 2026",
+    excerpt: "Manfaatkan AI untuk membantu riset dan penulisan tugas kuliahmu.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+  },
+  {
+    title: "Cara Membuat Makalah yang Baik",
+    slug: "cara-membuat-makalah-yang-baik",
+    tag: "Panduan",
+    date: "5 Jan 2026",
+    excerpt: "Struktur dan tips menulis makalah yang benar agar mendapat nilai A.",
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80",
   },
 ];
 
@@ -36,11 +37,11 @@ export default function Blog() {
         const def = defaultArticles[i] || {};
         return {
           title: a.title || def.title,
-          excerpt: a.excerpt || def.excerpt,
+          slug: a.slug || def.slug || "",
           tag: a.tag || def.tag,
-          tagColor: def.tagColor,
-          gradient: def.gradient,
           date: a.date || def.date,
+          excerpt: a.excerpt || def.excerpt,
+          image: a.image || def.image || "",
         };
       })
     : defaultArticles;
@@ -73,35 +74,45 @@ export default function Blog() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((a, i) => (
-            <div
-              key={a.title}
-              className={`group p-6 rounded-2xl bg-white dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/40 hover:border-indigo-200/50 dark:hover:border-indigo-600/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-500 ${
+            <Link
+              key={a.slug || i}
+              to={`/blog/${a.slug}`}
+              className={`group block p-0 rounded-2xl bg-white dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/40 hover:border-indigo-200/50 dark:hover:border-indigo-600/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-500 overflow-hidden ${
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className={`w-full h-28 rounded-xl bg-gradient-to-br ${a.gradient} opacity-10 dark:opacity-20 group-hover:opacity-20 transition-opacity`} />
-
-              <div className="mt-3 flex items-center justify-between">
-                <span className={`px-2.5 py-0.5 text-[10px] font-semibold rounded-md ${a.tagColor}`}>
-                  {a.tag}
-                </span>
-                <span className="text-[10px] text-gray-400 dark:text-gray-500">{a.date}</span>
+              <div className="w-full h-44 overflow-hidden">
+                <img
+                  src={a.image}
+                  alt={a.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
               </div>
 
-              <h3 className="mt-2 text-sm font-bold text-gray-900 dark:text-white leading-snug">
-                {a.title}
-              </h3>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                {a.excerpt}
-              </p>
+              <div className="p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="px-2.5 py-0.5 text-[10px] font-semibold rounded-md bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300">
+                    {a.tag}
+                  </span>
+                  <span className="text-[10px] text-gray-400 dark:text-gray-500">{a.date}</span>
+                </div>
 
-              <p className="mt-3 text-xs font-medium text-indigo-600 dark:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                Baca selengkapnya &rarr;
-              </p>
-            </div>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug line-clamp-2">
+                  {a.title}
+                </h3>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2">
+                  {a.excerpt}
+                </p>
+
+                <p className="mt-3 text-xs font-medium text-indigo-600 dark:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Baca selengkapnya &rarr;
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -8,6 +8,7 @@ const defaultProjects = [
     tag: "Mahasiswa",
     tagColor: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300",
     gradient: "from-indigo-500 to-blue-500",
+    image: "",
   },
   {
     title: "Aplikasi Kasir",
@@ -15,6 +16,7 @@ const defaultProjects = [
     tag: "Programming",
     tagColor: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300",
     gradient: "from-cyan-500 to-teal-500",
+    image: "",
   },
   {
     title: "PPT Presentasi",
@@ -22,6 +24,7 @@ const defaultProjects = [
     tag: "Sekolah",
     tagColor: "bg-blue-100 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300",
     gradient: "from-blue-500 to-indigo-500",
+    image: "",
   },
   {
     title: "Review Jurnal",
@@ -29,6 +32,7 @@ const defaultProjects = [
     tag: "Mahasiswa",
     tagColor: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300",
     gradient: "from-purple-500 to-pink-500",
+    image: "",
   },
   {
     title: "Brosur Digital",
@@ -36,6 +40,7 @@ const defaultProjects = [
     tag: "Desain",
     tagColor: "bg-amber-100 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300",
     gradient: "from-amber-500 to-orange-500",
+    image: "",
   },
   {
     title: "Landing Page",
@@ -43,6 +48,7 @@ const defaultProjects = [
     tag: "Programming",
     tagColor: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-300",
     gradient: "from-cyan-500 to-blue-500",
+    image: "",
   },
 ];
 
@@ -58,6 +64,7 @@ export default function Portofolio() {
           tag: p.category || def.tag,
           tagColor: def.tagColor,
           gradient: def.gradient,
+          image: p.image || "",
         };
       })
     : defaultProjects;
@@ -99,7 +106,13 @@ export default function Portofolio() {
               }`}
               style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <div className={`w-full h-32 rounded-xl bg-gradient-to-br ${p.gradient} opacity-10 dark:opacity-20 group-hover:opacity-20 dark:group-hover:opacity-30 transition-opacity`} />
+              {p.image ? (
+                <div className="w-full h-32 rounded-xl overflow-hidden">
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                </div>
+              ) : (
+                <div className={`w-full h-32 rounded-xl bg-gradient-to-br ${p.gradient} opacity-10 dark:opacity-20 group-hover:opacity-20 dark:group-hover:opacity-30 transition-opacity`} />
+              )}
 
               <div className="mt-3">
                 <span className={`inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-md ${p.tagColor}`}>
