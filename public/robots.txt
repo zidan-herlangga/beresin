@@ -4,7 +4,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://beresin.com/sitemap.xml
+Sitemap: https://beresintugas.vercel.app/sitemap.xml
 
 # Block admin/internal pages (if any)
 Disallow: /dist/
