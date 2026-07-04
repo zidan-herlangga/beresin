@@ -581,7 +581,7 @@ function AdminDashboard({ token, onLogout }) {
     setLoading(true);
     setMsg("");
     try {
-      const res = await fetch(`${API}/content/${page}?page=${page}`);
+      const res = await fetch(`${API}/content?page=${page}`);
       const json = await res.json();
       setData(json.data || {});
     } catch {
@@ -595,7 +595,7 @@ function AdminDashboard({ token, onLogout }) {
     setSaving(true);
     setMsg("");
     try {
-      const res = await fetch(`${API}/content/${activeTab}?page=${activeTab}`, {
+      const res = await fetch(`${API}/content?page=${activeTab}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

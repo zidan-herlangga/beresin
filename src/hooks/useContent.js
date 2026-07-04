@@ -13,7 +13,7 @@ export function useContent(page) {
       return;
     }
     setLoading(true);
-    fetch(`/api/content/${page}?page=${page}`)
+    fetch(`/api/content?page=${page}`)
       .then((r) => r.json())
       .then((json) => {
         if (json.data) {

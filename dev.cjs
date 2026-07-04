@@ -15,7 +15,7 @@ async function start() {
   const contactHandler = await loadHandler("api/contact.js");
   const loginHandler = await loadHandler("api/admin/login.js");
   const verifyHandler = await loadHandler("api/admin/verify.js");
-  const contentHandler = await loadHandler("api/content/[page].js");
+  const contentHandler = await loadHandler("api/content.js");
   const seedHandler = await loadHandler("api/seed.js");
 
   app.post("/api/contact", (req, res) => contactHandler(req, res));
