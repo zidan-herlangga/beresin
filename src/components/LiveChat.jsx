@@ -12,7 +12,7 @@ export default function LiveChat() {
   const send = () => {
     if (!input.trim()) return;
     const body = encodeURIComponent(`Halo Beresin! ${input}`);
-    window.open(`https://wa.me/6281234567890?text=${body}`, "_blank");
+    window.open(`https://wa.me/6285157066514?text=${body}`, "_blank");
     setInput("");
   };
 

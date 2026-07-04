@@ -4,8 +4,8 @@ import useInView from '../hooks/useInView';
 const contacts = [
   {
     label: 'WhatsApp',
-    value: '0812-3456-7890',
-    href: 'https://wa.me/6281234567890',
+    value: '0851-5706-6514',
+    href: 'https://wa.me/6285157066514',
     gradient: 'from-green-500 to-emerald-600',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ export default function Kontak() {
     const body = encodeURIComponent(
       `Halo Beresin!%0A%0ANama: ${data.nama}%0AEmail: ${data.email}%0APesan: ${data.pesan}`,
     );
-    window.open(`https://wa.me/6281234567890?text=${body}`, '_blank');
+    window.open(`https://wa.me/6285157066514?text=${body}`, '_blank');
     setStatus({
       type: 'success',
       message: 'Form terkirim! Lanjutkan chat di WhatsApp.',

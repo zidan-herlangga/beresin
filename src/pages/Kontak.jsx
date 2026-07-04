@@ -97,7 +97,7 @@ export default function Kontak() {
     const body = encodeURIComponent(
       `Halo Beresin!%0A%0ANama: ${data.nama}%0AEmail: ${data.email}%0APesan: ${data.pesan}`,
     );
-    window.open(`https://wa.me/6281234567890?text=${body}`, '_blank');
+    window.open(`https://wa.me/6285157066514?text=${body}`, '_blank');
     setStatus({
       type: 'success',
       message: 'Form terkirim! Lanjutkan chat di WhatsApp.',
