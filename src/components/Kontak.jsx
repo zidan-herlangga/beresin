@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useInView from "../hooks/useInView";
 
 const contacts = [
@@ -14,8 +15,8 @@ const contacts = [
   },
   {
     label: "Email",
-    value: "hello@jokiyuk.com",
-    href: "mailto:hello@jokiyuk.com",
+    value: "hello@beresin.com",
+    href: "mailto:hello@beresin.com",
     gradient: "from-blue-500 to-indigo-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,8 +26,8 @@ const contacts = [
   },
   {
     label: "Instagram",
-    value: "@jokiyuk_id",
-    href: "https://instagram.com/jokiyuk_id",
+    value: "@beresin.id",
+    href: "https://instagram.com/beresin.id",
     gradient: "from-pink-500 to-rose-600",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,15 +41,35 @@ const contacts = [
 
 export default function Kontak() {
   const [ref, inView] = useInView({ threshold: 0.1 });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setStatus(null);
     const form = e.target;
-    const nama = form.nama.value;
-    const email = form.email.value;
-    const pesan = form.pesan.value;
-    const body = encodeURIComponent(`Halo Beresin!%0A%0ANama: ${nama}%0AEmail: ${email}%0APesan: ${pesan}`);
+    const data = { nama: form.nama.value, email: form.email.value, pesan: form.pesan.value };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (res.ok) {
+        setStatus({ type: "success", message: "Pesan berhasil dikirim! Kami akan menghubungi kamu." });
+        form.reset();
+        setLoading(false);
+        return;
+      }
+    } catch {}
+
+    const body = encodeURIComponent(`Halo Beresin!%0A%0ANama: ${data.nama}%0AEmail: ${data.email}%0APesan: ${data.pesan}`);
     window.open(`https://wa.me/6281234567890?text=${body}`, "_blank");
+    setStatus({ type: "success", message: "Form terkirim! Lanjutkan chat di WhatsApp." });
+    setLoading(false);
   };
 
   return (
@@ -133,13 +154,16 @@ export default function Kontak() {
             </div>
             <button
               type="submit"
-              className="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
+              disabled={loading}
+              className="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 transition-all disabled:opacity-60"
             >
-              Kirim via WhatsApp
+              {loading ? "Mengirim..." : "Kirim Pesan"}
             </button>
-            <p className="text-center text-[10px] text-gray-500">
-              Form akan dikirim langsung ke WhatsApp kami
-            </p>
+            {status && (
+              <p className={`text-center text-xs ${status.type === "success" ? "text-green-400" : "text-red-400"}`}>
+                {status.message}
+              </p>
+            )}
           </form>
         </div>
       </div>
