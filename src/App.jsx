@@ -25,6 +25,7 @@ import Tentang from "./pages/Tentang";
 import LayananPage from "./pages/Layanan";
 import CaraOrderPage from "./pages/CaraOrder";
 import KontakPage from "./pages/Kontak";
+import Admin from "./pages/Admin";
 
 function HomePage({ onOpenSyarat }) {
   return (
@@ -71,6 +72,7 @@ function App() {
             <Route path="/layanan" element={layout(<LayananPage />)} />
             <Route path="/cara-order" element={layout(<CaraOrderPage />)} />
             <Route path="/kontak" element={layout(<KontakPage />)} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>
       </ThemeProvider>
