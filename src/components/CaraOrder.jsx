@@ -1,6 +1,7 @@
+import { useContent } from "../hooks/useContent";
 import useInView from "../hooks/useInView";
 
-const steps = [
+const defaultSteps = [
   {
     num: "01",
     title: "Konsultasi",
@@ -48,6 +49,20 @@ const steps = [
 ];
 
 export default function CaraOrder() {
+  const { data: content } = useContent("beranda");
+  const apiSteps = content?.caraOrder;
+  const steps = apiSteps
+    ? apiSteps.map((s, i) => {
+        const def = defaultSteps[i] || {};
+        return {
+          num: s.number || def.num,
+          title: s.title || def.title,
+          desc: s.desc || def.desc,
+          color: def.color,
+          icon: def.icon,
+        };
+      })
+    : defaultSteps;
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

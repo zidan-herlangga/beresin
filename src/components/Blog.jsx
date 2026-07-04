@@ -1,6 +1,7 @@
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const articles = [
+const defaultArticles = [
   {
     title: "5 Tips Biar Gak Panik Saat Deadline Mepet",
     excerpt: "Deadline tugas besok? Tenang, ada cara biar kamu tetap produktif tanpa panik berlebihan.",
@@ -28,6 +29,22 @@ const articles = [
 ];
 
 export default function Blog() {
+  const { data: content } = useContent("beranda");
+  const apiArticles = content?.blog;
+  const articles = apiArticles
+    ? apiArticles.map((a, i) => {
+        const def = defaultArticles[i] || {};
+        return {
+          title: a.title || def.title,
+          excerpt: a.excerpt || def.excerpt,
+          tag: a.tag || def.tag,
+          tagColor: def.tagColor,
+          gradient: def.gradient,
+          date: a.date || def.date,
+        };
+      })
+    : defaultArticles;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

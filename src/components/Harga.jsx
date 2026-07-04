@@ -1,6 +1,7 @@
+import { useContent } from "../hooks/useContent";
 import useInView from "../hooks/useInView";
 
-const plans = [
+const defaultPlans = [
   {
     name: "Pelajar",
     price: "25",
@@ -50,6 +51,24 @@ const getIcon = (plan) => (
 );
 
 export default function Harga() {
+  const { data: content } = useContent("beranda");
+  const apiPlans = content?.harga;
+  const plans = apiPlans
+    ? apiPlans.map((p, i) => {
+        const def = defaultPlans[i] || {};
+        return {
+          name: p.name || def.name,
+          price: p.price?.replace("rb", "") || def.price,
+          unit: p.price?.includes("rb") ? "rb" : def.unit,
+          desc: p.desc || def.desc,
+          features: p.features || def.features,
+          gradient: def.gradient,
+          lightBg: def.lightBg,
+          borderColor: def.borderColor,
+          popular: p.popular || def.popular,
+        };
+      })
+    : defaultPlans;
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

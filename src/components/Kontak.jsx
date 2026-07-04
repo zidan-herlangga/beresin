@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import useInView from '../hooks/useInView';
+import { useContent } from "../hooks/useContent";
 
-const contacts = [
+const defaultContacts = [
   {
     label: 'WhatsApp',
     value: '0851-5706-6514',
@@ -58,6 +59,21 @@ const contacts = [
 ];
 
 export default function Kontak() {
+  const { data: content } = useContent("beranda");
+  const kontakData = content?.kontak;
+  const contacts = kontakData?.contacts
+    ? kontakData.contacts.map((c, i) => {
+        const def = defaultContacts[i] || {};
+        return {
+          label: c.label || def.label,
+          value: c.value || def.value,
+          href: c.href || def.href,
+          gradient: def.gradient,
+          icon: def.icon,
+        };
+      })
+    : defaultContacts;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);

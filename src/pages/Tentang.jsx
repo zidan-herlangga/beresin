@@ -1,20 +1,37 @@
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const values = [
+const defaultValues = [
   { title: "Cepet", desc: "Tugas beres sebelum deadline. No panic." },
   { title: "Profesional", desc: "Dikerjain tim ahli yang kompeten di bidangnya." },
   { title: "Ramah", desc: "Harga kantong pelajar, pelayanan maksimal." },
   { title: "Amanah", desc: "Privasi aman, hasil original, revisi gratis." },
 ];
 
-const stats = [
+const defaultStats = [
   { label: "Tugas Selesai", value: "500+" },
   { label: "Tim Ahli", value: "50+" },
   { label: "Kepuasan", value: "98%" },
   { label: "Cepat Selesai", value: "24 Jam" },
 ];
 
+const defaultTeam = [
+  { name: "Zidan Herlangga", role: "Programming Lead", desc: "Ahli algoritma & pengembangan web. Lulusan Ilmu Komputer.", color: "from-indigo-500 to-blue-500" },
+  { name: "Aldo Moroseto", role: "Business & Marketing", desc: "Pengelola operasional dan strategi brand Beresin.", color: "from-purple-500 to-pink-500" },
+];
+
 export default function Tentang() {
+  const { data: content } = useContent("tentang");
+  const about = content;
+  
+  const displayStats = about?.stats
+    ? about.stats.map((s) => ({
+        label: s.label,
+        value: s.value + (s.suffix || ""),
+      }))
+    : defaultStats;
+
+  const displayValues = about?.values || defaultValues;
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (
@@ -28,14 +45,13 @@ export default function Tentang() {
             TENTANG
           </span>
           <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-            Kenalan sama{" "}
+            {(about?.heroTitle || "Kenalan sama")}{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               Beresin
             </span>
           </h1>
           <p className="mt-4 text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Beresin adalah platform joki tugas buat siswa & mahasiswa se-Indonesia. 
-            Kami bantu tugas kamu beres tepat waktu, kualitas ok, harga ramah.
+            {about?.heroSubtitle || "Beresin adalah platform joki tugas buat siswa & mahasiswa se-Indonesia. Kami bantu tugas kamu beres tepat waktu, kualitas ok, harga ramah."}
           </p>
         </div>
       </section>
@@ -48,18 +64,14 @@ export default function Tentang() {
                 Kenapa Beresin?
               </h2>
               <p className="mt-4 text-gray-500 dark:text-gray-400 leading-relaxed">
-                Awalnya kita sadar banyak temen-temen yang stres banget sama tugas yang numpuk.
-                Deadline mepet, bingung, pusing. Makanya kita bikin Beresin — biar semua bisa 
-                di"beresin" tanpa drama.
+                {about?.story?.[0] || "Awalnya kita sadar banyak temen-temen yang stres banget sama tugas yang numpuk. Deadline mepet, bingung, pusing. Makanya kita bikin Beresin — biar semua bisa di\"beresin\" tanpa drama."}
               </p>
               <p className="mt-3 text-gray-500 dark:text-gray-400 leading-relaxed">
-                Setiap tugas dikerjain tim ahli yang udah terverifikasi. Kita juga kasih 
-                garansi revisi gratis sampai kamu puas. Pokoknya, kamu tinggal duduk manis, 
-                tugas beres!
+                {about?.story?.[1] || "Setiap tugas dikerjain tim ahli yang udah terverifikasi. Kita juga kasih garansi revisi gratis sampai kamu puas. Pokoknya, kamu tinggal duduk manis, tugas beres!"}
               </p>
             </div>
             <div ref={ref} className="grid grid-cols-2 gap-4">
-              {stats.map((s, i) => (
+              {displayStats.map((s, i) => (
                 <div
                   key={s.label}
                   className={`p-5 rounded-2xl bg-gray-50 dark:bg-gray-800/30 border border-gray-100 dark:border-gray-700/30 text-center transition-all duration-500 ${
@@ -86,7 +98,7 @@ export default function Tentang() {
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {values.map((v, i) => (
+            {displayValues.map((v, i) => (
               <div key={v.title} className="p-6 rounded-2xl bg-white dark:bg-gray-800/30 border border-gray-200/70 dark:border-gray-700/40 text-center hover:shadow-lg transition-all">
                 <div className="w-12 h-12 mx-auto rounded-xl bg-indigo-50 dark:bg-indigo-950/30 flex items-center justify-center">
                   <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">{i + 1}</span>
@@ -111,10 +123,7 @@ export default function Tentang() {
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: "Zidan Herlangga", role: "Programming Lead", desc: "Ahli algoritma & pengembangan web. Lulusan Ilmu Komputer.", color: "from-indigo-500 to-blue-500" },
-              { name: "Aldo Moroseto", role: "Business & Marketing", desc: "Pengelola operasional dan strategi brand Beresin.", color: "from-purple-500 to-pink-500" },
-            ].map((t, i) => (
+            {(about?.tim || defaultTeam).map((t, i) => (
               <div
                 key={t.name}
                 className="group p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-700/30 hover:border-indigo-200/50 dark:hover:border-indigo-600/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-500 text-center"

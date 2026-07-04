@@ -1,6 +1,7 @@
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const projects = [
+const defaultProjects = [
   {
     title: "Makalah Ekonomi",
     desc: "Analisis dampak inflasi terhadap UMKM di Indonesia — 15 halaman, 25 referensi.",
@@ -46,6 +47,21 @@ const projects = [
 ];
 
 export default function Portofolio() {
+  const { data: content } = useContent("beranda");
+  const apiProjects = content?.portofolio;
+  const projects = apiProjects
+    ? apiProjects.map((p, i) => {
+        const def = defaultProjects[i] || {};
+        return {
+          title: p.title || def.title,
+          desc: p.desc || def.desc,
+          tag: p.category || def.tag,
+          tagColor: def.tagColor,
+          gradient: def.gradient,
+        };
+      })
+    : defaultProjects;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

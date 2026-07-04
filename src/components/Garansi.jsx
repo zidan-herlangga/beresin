@@ -1,6 +1,7 @@
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const guarantees = [
+const defaultGuarantees = [
   {
     title: "Original 100%",
     desc: "Semua tugas dikerjakan dari awal. Bukan hasil copy-paste atau plagiarisme.",
@@ -48,6 +49,21 @@ const guarantees = [
 ];
 
 export default function Garansi() {
+  const { data: content } = useContent("beranda");
+  const apiGuarantees = content?.garansi;
+  const guarantees = apiGuarantees
+    ? apiGuarantees.map((g, i) => {
+        const def = defaultGuarantees[i] || {};
+        return {
+          title: g.title || def.title,
+          desc: g.desc || def.desc,
+          icon: def.icon,
+          color: def.color,
+          bg: def.bg,
+        };
+      })
+    : defaultGuarantees;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

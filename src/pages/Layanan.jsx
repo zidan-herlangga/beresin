@@ -1,6 +1,7 @@
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const categories = [
+const defaultCategories = [
   {
     title: "Tugas Sekolah",
     desc: "Dari PR harian sampe makalah, semua kita beresin.",
@@ -77,6 +78,22 @@ const categories = [
 ];
 
 export default function Layanan() {
+  const { data: content } = useContent("layanan");
+  const apiCats = content?.categories;
+  const categories = apiCats
+    ? apiCats.map((c, i) => {
+        const def = defaultCategories[i] || {};
+        return {
+          title: c.title || def.title,
+          desc: def.desc,
+          items: c.services || def.items,
+          icon: def.icon,
+          gradient: def.gradient,
+          bg: def.bg,
+        };
+      })
+    : defaultCategories;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

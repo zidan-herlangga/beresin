@@ -1,6 +1,7 @@
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const steps = [
+const defaultSteps = [
   {
     num: "01",
     title: "Konsultasi",
@@ -47,13 +48,15 @@ const steps = [
   },
 ];
 
-const faqs = [
+const defaultFaqItems = [
   { q: "Berapa lama prosesnya?", a: "Tergantung tingkat kesulitan. Tugas ringan 6-12 jam, kompleks 1-3 hari." },
   { q: "Pembayaran gimana?", a: "DP 50% dulu, sisanya setelah tugas selesai dan kamu ACC." },
   { q: "Bisa revisi?", a: "Tentu! Revisi gratis sampai kamu puas." },
 ];
 
 export default function CaraOrder() {
+  const { data: content } = useContent("cara-order");
+
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (
@@ -81,7 +84,7 @@ export default function CaraOrder() {
       <section className="py-20 bg-white dark:bg-gray-950">
         <div ref={ref} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-8">
-            {steps.map((s, i) => (
+            {(content?.steps || defaultSteps).map((s, i) => (
               <div
                 key={s.num}
                 className={`group relative flex gap-6 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-700/30 hover:border-indigo-200/50 dark:hover:border-indigo-600/30 hover:shadow-lg transition-all duration-500 ${
@@ -93,7 +96,7 @@ export default function CaraOrder() {
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.gradient} flex items-center justify-center text-white text-lg font-bold shadow-sm`}>
                     {s.num}
                   </div>
-                  {i < steps.length - 1 && (
+                  {i < (content?.steps || defaultSteps).length - 1 && (
                     <div className="w-0.5 h-full min-h-[3rem] bg-gradient-to-b from-indigo-200 to-transparent dark:from-indigo-800 mt-2" />
                   )}
                 </div>
@@ -119,7 +122,7 @@ export default function CaraOrder() {
             Masih ragu?
           </h2>
           <div className="space-y-3">
-            {faqs.map((faq, i) => (
+            {(content?.faq || defaultFaqItems).map((faq, i) => (
               <div key={i} className="p-4 rounded-xl bg-white dark:bg-gray-800/30 border border-gray-200/50 dark:border-gray-700/30">
                 <p className="text-sm font-semibold text-gray-900 dark:text-white">{faq.q}</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{faq.a}</p>

@@ -1,6 +1,15 @@
 import AnimatedCounter from './AnimatedCounter';
+import { useContent } from "../hooks/useContent";
 
 export default function Hero() {
+  const { data: content } = useContent("beranda");
+  const hero = content?.hero;
+  const statData = hero?.stats ?? [
+    { value: 500, suffix: "+", label: "Tugas Selesai" },
+    { value: 98, suffix: "%", label: "Kepuasan" },
+    { value: 50, suffix: "+", label: "Tim Ahli" },
+    { value: 24, suffix: " Jam", label: "Cepat Selesai" },
+  ];
   return (
     <section
       id="hero"
@@ -88,15 +97,10 @@ export default function Hero() {
           className="opacity-0 animate-float-up mt-16 flex flex-wrap items-center justify-center gap-x-12 gap-y-4"
           style={{ animationDelay: '0.6s' }}
         >
-          {[
-            { end: 500, suffix: '+', label: 'Tugas Selesai' },
-            { end: 98, suffix: '%', label: 'Kepuasan' },
-            { end: 50, suffix: '+', label: 'Tim Ahli' },
-            { end: 24, suffix: ' Jam', label: 'Cepat Selesai' },
-          ].map((stat) => (
+          {statData.map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                <AnimatedCounter end={stat.end} suffix={stat.suffix} />
+                <AnimatedCounter end={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 mt-0.5 font-medium">
                 {stat.label}

@@ -1,6 +1,7 @@
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const team = [
+const defaultTeam = [
   {
     name: "Zidan Herlangga",
     role: "Programming Lead",
@@ -20,6 +21,22 @@ const team = [
 ];
 
 export default function TimAhli() {
+  const { data: content } = useContent("beranda");
+  const apiTeam = content?.tim;
+  const team = apiTeam
+    ? apiTeam.map((t, i) => {
+        const def = defaultTeam[i] || {};
+        return {
+          name: t.name || def.name,
+          role: t.role || def.role,
+          skill: def.skill,
+          desc: def.desc,
+          color: def.color,
+          initials: t.initials || def.initials,
+        };
+      })
+    : defaultTeam;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

@@ -1,6 +1,7 @@
+import { useContent } from "../hooks/useContent";
 import useInView from "../hooks/useInView";
 
-const services = [
+const defaultServices = [
   {
     title: "Tugas Sekolah",
     desc: "PR, makalah, laporan, PPT — semua beres.",
@@ -64,6 +65,22 @@ const bentoGrid = [
 ];
 
 export default function Layanan() {
+  const { data: content } = useContent("beranda");
+  const apiServices = content?.layanan;
+  const services = apiServices
+    ? apiServices.map((s, i) => {
+        const def = defaultServices[i] || {};
+        return {
+          title: s.title || def.title,
+          desc: def.desc || `Layanan ${s.title}`,
+          items: s.items || def.items,
+          color: def.color,
+          gradient: def.gradient,
+          bg: def.bg,
+          icon: def.icon,
+        };
+      })
+    : defaultServices;
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (

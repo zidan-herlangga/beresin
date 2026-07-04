@@ -1,7 +1,8 @@
 import { useState } from "react";
 import useInView from "../hooks/useInView";
+import { useContent } from "../hooks/useContent";
 
-const faqs = [
+const defaultFaqs = [
   {
     q: "Apakah hasil tugas original?",
     a: "Tentu! Semua tugas dikerjakan dari awal oleh tim ahli kami. Kami tidak melakukan copy-paste dan setiap tugas melalui cek plagiarisme.",
@@ -29,6 +30,9 @@ const faqs = [
 ];
 
 export default function FAQ() {
+  const { data: content } = useContent("beranda");
+  const faqs = content?.faq || defaultFaqs;
+
   const [openIdx, setOpenIdx] = useState(null);
   const [ref, inView] = useInView({ threshold: 0.1 });
 
