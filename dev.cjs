@@ -51,13 +51,21 @@ async function start() {
     }
 
     const busboy = Busboy({ headers: req.headers, limits: { fileSize: MAX_SIZE } });
-    let fileSaved = false;
+    let fileReceived = false;
+    let responded = false;
+
+    function send(code, data) {
+      if (responded) return;
+      responded = true;
+      res.status(code).json(data);
+    }
 
     busboy.on("file", (fieldname, file, info) => {
+      fileReceived = true;
       const { filename, mimeType } = info;
       if (!ALLOWED_TYPES.includes(mimeType)) {
         file.resume();
-        return res.status(400).json({ error: "Tipe file tidak didukung. Gunakan JPG, PNG, WebP, GIF, atau SVG." });
+        return send(400, { error: "Tipe file tidak didukung. Gunakan JPG, PNG, WebP, GIF, atau SVG." });
       }
 
       const ext = filename.split(".").pop() || "jpg";
@@ -65,17 +73,26 @@ async function start() {
       const savePath = path.join(uploadsDir, fileName);
       const writeStream = fs.createWriteStream(savePath);
 
+      writeStream.on("error", (err) => {
+        console.error("Write stream error:", err);
+        send(500, { error: "Gagal menyimpan file" });
+      });
+
       file.pipe(writeStream);
       file.on("end", () => {
-        fileSaved = true;
-        res.status(200).json({ url: `/uploads/${fileName}` });
+        send(200, { url: `/uploads/${fileName}` });
+      });
+      file.on("error", () => {
+        send(500, { error: "Gagal membaca file" });
       });
     });
 
     busboy.on("finish", () => {
-      if (!fileSaved) {
-        res.status(400).json({ error: "Tidak ada file yang diupload" });
-      }
+      if (!fileReceived) send(400, { error: "Tidak ada file yang diupload" });
+    });
+
+    busboy.on("error", () => {
+      send(500, { error: "Gagal memproses upload" });
     });
 
     req.pipe(busboy);
