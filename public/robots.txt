@@ -1,0 +1,11 @@
+# Beresin - SEO
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://beresin.com/sitemap.xml
+
+# Block admin/internal pages (if any)
+Disallow: /dist/
+Disallow: /node_modules/
