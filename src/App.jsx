@@ -11,7 +11,6 @@ import Portofolio from "./components/Portofolio";
 import Garansi from "./components/Garansi";
 import Testimoni from "./components/Testimoni";
 import FAQ from "./components/FAQ";
-import PaymentMethods from "./components/PaymentMethods";
 import Blog from "./components/Blog";
 import Kontak from "./components/Kontak";
 import Footer from "./components/Footer";
@@ -39,7 +38,6 @@ function HomePage({ onOpenSyarat }) {
       <Garansi />
       <Testimoni />
       <FAQ />
-      <PaymentMethods />
       <Blog />
       <Kontak />
     </>
