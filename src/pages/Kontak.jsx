@@ -89,6 +89,9 @@ export default function Kontak() {
         setLoading(false);
         return;
       }
+      setStatus({ type: 'error', message: json.error || 'Gagal mengirim pesan.' });
+      setLoading(false);
+      return;
     } catch {}
 
     const body = encodeURIComponent(
