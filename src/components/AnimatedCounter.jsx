@@ -4,6 +4,7 @@ export default function AnimatedCounter({ end, suffix = "", duration = 2000 }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
+  const raf = useRef(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -13,28 +14,34 @@ export default function AnimatedCounter({ end, suffix = "", duration = 2000 }) {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
           const start = performance.now();
-          const step = (now) => {
+          const textNode = el.firstChild;
+          raf.current = requestAnimationFrame(function step(now) {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * end));
-            if (progress < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
+            const value = Math.floor(eased * end);
+            if (textNode) textNode.textContent = value;
+            if (progress < 1) {
+              raf.current = requestAnimationFrame(step);
+            } else {
+              setCount(value);
+            }
+          });
           obs.unobserve(el);
         }
       },
       { threshold: 0.5 }
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    return () => {
+      obs.disconnect();
+      if (raf.current) cancelAnimationFrame(raf.current);
+    };
   }, [end, duration]);
-
-  const display = end <= 100 ? count : count;
 
   return (
     <span ref={ref}>
-      {display}
+      {count}
       {suffix}
     </span>
   );

@@ -11,12 +11,12 @@ function inlineCssPlugin() {
       for (const key of htmlKeys) {
         const html = bundle[key];
         if (html.type !== 'asset') continue;
-        let source = typeof html.source === 'string' ? html.source : Buffer.from(html.source).toString();
+        let source = typeof html.source === 'string' ? html.source : new TextDecoder().decode(html.source);
         const cssFiles = Object.keys(bundle).filter(k => k.endsWith('.css'));
         for (const file of cssFiles) {
           const chunk = bundle[file];
           if (chunk.type !== 'asset') continue;
-          const css = typeof chunk.source === 'string' ? chunk.source : Buffer.from(chunk.source).toString();
+          const css = typeof chunk.source === 'string' ? chunk.source : new TextDecoder().decode(chunk.source);
           const tag = `<link rel="stylesheet" crossorigin href="/${file}">`;
           if (source.includes(tag)) {
             source = source.replace(tag, `<style>${css}</style>`);
@@ -29,8 +29,29 @@ function inlineCssPlugin() {
   };
 }
 
+function lazyChunksPlugin() {
+  const lazyPatterns = ['editor-', 'Admin-'];
+  return {
+    name: 'lazy-chunks',
+    enforce: 'post',
+    generateBundle(_, bundle) {
+      const htmlKeys = Object.keys(bundle).filter(k => k.endsWith('.html'));
+      for (const key of htmlKeys) {
+        const html = bundle[key];
+        if (html.type !== 'asset') continue;
+        let source = typeof html.source === 'string' ? html.source : new TextDecoder().decode(html.source);
+        for (const pattern of lazyPatterns) {
+          const regex = new RegExp(`<link rel="modulepreload"[^>]*href="[^"]*${pattern}[^"]*"[^>]*>`, 'g');
+          source = source.replace(regex, '');
+        }
+        html.source = source;
+      }
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), inlineCssPlugin()],
+  plugins: [react(), tailwindcss(), inlineCssPlugin(), lazyChunksPlugin()],
   server: {
     allowedHosts: true,
     proxy: {
