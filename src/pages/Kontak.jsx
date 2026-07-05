@@ -61,6 +61,20 @@ const defaultContacts = [
 export default function Kontak() {
   const { data: content } = useContent("kontak");
 
+  const apiContacts = content?.contacts;
+  const contacts = apiContacts
+    ? apiContacts.map((c, i) => {
+        const def = defaultContacts[i] || {};
+        return {
+          label: c.label || def.label,
+          value: c.value || def.value,
+          href: c.href || def.href,
+          gradient: def.gradient,
+          icon: def.icon,
+        };
+      })
+    : defaultContacts;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
@@ -134,7 +148,7 @@ export default function Kontak() {
         <div ref={ref} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-4">
-              {(content?.contacts || defaultContacts).map((c) => (
+              {contacts.map((c) => (
                 <a
                   key={c.label}
                   href={c.href}
@@ -145,7 +159,7 @@ export default function Kontak() {
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-6'
                   }`}
-                  style={{ transitionDelay: `${(content?.contacts || defaultContacts).indexOf(c) * 100}ms` }}
+                  style={{ transitionDelay: `${contacts.indexOf(c) * 100}ms` }}
                 >
                   <div
                     className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center text-white group-hover:scale-110 transition-transform shrink-0`}

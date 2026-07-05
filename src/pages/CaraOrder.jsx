@@ -57,6 +57,20 @@ const defaultFaqItems = [
 export default function CaraOrder() {
   const { data: content } = useContent("cara-order");
 
+  const apiSteps = content?.steps;
+  const steps = apiSteps
+    ? apiSteps.map((s, i) => {
+        const def = defaultSteps[i] || {};
+        return {
+          num: s.number || def.num,
+          title: s.title || def.title,
+          desc: s.desc || def.desc,
+          gradient: def.gradient,
+          icon: def.icon,
+        };
+      })
+    : defaultSteps;
+
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (
@@ -84,7 +98,7 @@ export default function CaraOrder() {
       <section className="py-20 bg-white dark:bg-gray-950">
         <div ref={ref} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-8">
-            {(content?.steps || defaultSteps).map((s, i) => (
+            {steps.map((s, i) => (
               <div
                 key={s.num}
                 className={`group relative flex gap-6 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/20 border border-gray-100 dark:border-gray-700/30 hover:border-indigo-200/50 dark:hover:border-indigo-600/30 hover:shadow-lg transition-all duration-500 ${
@@ -96,7 +110,7 @@ export default function CaraOrder() {
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.gradient} flex items-center justify-center text-white text-lg font-bold shadow-sm`}>
                     {s.num}
                   </div>
-                  {i < (content?.steps || defaultSteps).length - 1 && (
+                  {i < steps.length - 1 && (
                     <div className="w-0.5 h-full min-h-[3rem] bg-gradient-to-b from-indigo-200 to-transparent dark:from-indigo-800 mt-2" />
                   )}
                 </div>

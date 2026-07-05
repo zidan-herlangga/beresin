@@ -68,6 +68,8 @@ export default function Footer({ onOpenSyarat }) {
               <img
                 src="/logo.svg"
                 alt="Beresin"
+                width="120"
+                height="120"
                 className="h-9 w-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
               />
               <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">

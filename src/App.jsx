@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Navbar from "./components/Navbar";
@@ -15,19 +15,19 @@ import Blog from "./components/Blog";
 import Kontak from "./components/Kontak";
 import Footer from "./components/Footer";
 import FloatingButton from "./components/FloatingButton";
-
 import BackToTop from "./components/BackToTop";
 import ScrollToTop from "./components/ScrollToTop";
 import SyaratKetentuan from "./components/SyaratKetentuan";
 import CookieConsent from "./components/CookieConsent";
 import Preloader from "./components/Preloader";
-import Tentang from "./pages/Tentang";
-import LayananPage from "./pages/Layanan";
-import CaraOrderPage from "./pages/CaraOrder";
-import KontakPage from "./pages/Kontak";
-import Admin from "./pages/Admin";
-import BlogDetail from "./pages/BlogDetail";
-import BlogPage from "./pages/Blog";
+
+const Tentang = lazy(() => import("./pages/Tentang"));
+const LayananPage = lazy(() => import("./pages/Layanan"));
+const CaraOrderPage = lazy(() => import("./pages/CaraOrder"));
+const KontakPage = lazy(() => import("./pages/Kontak"));
+const Admin = lazy(() => import("./pages/Admin"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const BlogPage = lazy(() => import("./pages/Blog"));
 
 function HomePage({ onOpenSyarat }) {
   return (
@@ -47,13 +47,23 @@ function HomePage({ onOpenSyarat }) {
   );
 }
 
+function PageFallback() {
+  return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
+
 function App() {
   const [syaratOpen, setSyaratOpen] = useState(false);
 
   const layout = (page) => (
     <>
       <Navbar />
-      {page}
+      <Suspense fallback={<PageFallback />}>
+        {page}
+      </Suspense>
       <Footer onOpenSyarat={() => setSyaratOpen(true)} />
       <FloatingButton />
       <BackToTop />

@@ -122,7 +122,7 @@ export default function BlogDetail() {
 
         {a.image && (
           <div className="w-full aspect-[2/1] sm:aspect-[2.4/1] rounded-2xl overflow-hidden mb-8 bg-gray-200 dark:bg-gray-800 relative">
-            <img src={a.image} alt={a.title} className="w-full h-full object-cover" loading="eager" />
+            <img src={a.image} alt={a.title} className="w-full h-full object-cover" loading="lazy" />
           </div>
         )}
 

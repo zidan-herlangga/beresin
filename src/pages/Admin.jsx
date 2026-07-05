@@ -802,28 +802,34 @@ function AdminDashboard({ token, onLogout }) {
   };
 
   const displayPage = blogMode ? "blog" : activePage;
-  const Editor = editors["beranda"];
+  const Editor = activePage === "dashboard" ? null : editors[blogMode ? "beranda" : activePage];
 
   return (
     <div className="min-h-screen bg-gray-950 flex">
       {toast && <Toast key={toast.key} message={toast.message} type={toast.type} onClose={dismissToast} />}
       {confirm && <ConfirmModal {...confirm} />}
 
-      {sidebarOpen && <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
+      {sidebarOpen && <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
 
       {/* Sidebar */}
-      <aside className={`fixed lg:sticky top-0 left-0 z-50 w-60 h-screen bg-gray-900/95 backdrop-blur-xl border-r border-white/[0.04] flex flex-col shrink-0 transition-all duration-300 ease-out ${
+      <aside className={`fixed lg:sticky top-0 left-0 z-50 w-64 h-screen bg-gray-900/95 backdrop-blur-xl border-r border-white/[0.04] flex flex-col shrink-0 transition-all duration-300 ease-out ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-      }`}>
-        <div className="p-5 border-b border-white/[0.04]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/15">
-              <Svg d={icons.shield} className="w-5 h-5 text-white" />
+      } lg:rounded-none rounded-r-2xl shadow-2xl shadow-black/50`}>
+        <div className="relative p-5 border-b border-white/[0.04]">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/15 shrink-0">
+                <Svg d={icons.shield} className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-base font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Beresin</h1>
+                <p className="text-[11px] text-gray-500 mt-0.5">Admin Panel</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-base font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Beresin</h1>
-              <p className="text-[11px] text-gray-500 mt-0.5">Admin Panel</p>
-            </div>
+            <button onClick={() => setSidebarOpen(false)} className="lg:hidden w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-white hover:bg-white/[0.06] transition-all -mr-1">
+              <Svg d={icons.x} className="w-4 h-4" />
+            </button>
           </div>
         </div>
         <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
@@ -854,17 +860,17 @@ function AdminDashboard({ token, onLogout }) {
 
       {/* Main */}
       <main className="flex-1 flex flex-col min-h-screen overflow-y-auto">
-        <div className="sticky top-0 z-30 lg:hidden bg-gray-950/90 backdrop-blur-xl border-b border-white/[0.04] px-4 py-3 flex items-center justify-between">
-          <button onClick={() => setSidebarOpen(true)} className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-400 hover:text-white hover:bg-white/[0.05] -ml-1 transition-all">
+        <div className="sticky top-0 z-30 lg:hidden bg-gray-950/90 backdrop-blur-xl border-b border-white/[0.04] px-4 py-2.5 flex items-center justify-between">
+          <button onClick={() => setSidebarOpen(true)} className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:text-white hover:bg-white/[0.06] -ml-1.5 transition-all active:scale-90">
             <Svg d={icons.menu} className="w-5 h-5" />
           </button>
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-              <Svg d={icons.shield} className="w-3.5 h-3.5 text-white" />
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-sm">
+                <Svg d={icons.shield} className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-sm font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Admin</span>
             </div>
-            <span className="text-sm font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Beresin</span>
-          </div>
-          <div className="w-9 h-9 flex items-center justify-center">
             {dirty && <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-lg shadow-amber-400/20" />}
           </div>
         </div>

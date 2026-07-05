@@ -36,7 +36,14 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2.5 group">
-              <img src="/logo.svg" alt="Beresin" className="h-8 w-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-300" />
+              <img
+                src="/logo-beresintugas.svg"
+                alt="Beresin"
+                width="120"
+                height="120"
+                className="h-8 w-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
+                fetchpriority="high"
+              />
               <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
                 Beresin
               </span>
@@ -169,68 +176,82 @@ export default function Navbar() {
         className={`fixed inset-0 z-[60] ${open ? '' : 'pointer-events-none'}`}
       >
         <div
-          className={`absolute inset-0 bg-black/60 backdrop-blur-lg transition-opacity duration-500 ${open ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setOpen(false)}
         />
 
         <div
-          className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+          className={`absolute inset-0 flex items-center justify-center p-4 transition-all duration-300 ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         >
-          <div className="relative w-full max-w-md mx-4">
-            <div className="text-center">
-              <div className="flex items-center justify-between mb-10 px-2">
-                <span className="text-sm font-bold">
-                  <img
-                    src="/logo.svg"
-                    alt="Beresin"
-                    className="h-7 w-auto inline-block"
-                  />
-                </span>
-                <button
-                  onClick={() => setOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
+          <div className="relative w-full max-w-sm bg-white dark:bg-gray-900 rounded-2xl shadow-2xl shadow-black/30 border border-gray-100 dark:border-gray-800 overflow-hidden">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-              <div className="space-y-1">
-                {links.map((l, i) => (
-                  <Link
-                    key={l.to}
-                    to={l.to}
-                    onClick={() => setOpen(false)}
-                    className={`group block py-3 px-4 transition-all duration-500 ${open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                    style={{ transitionDelay: `${200 + i * 80}ms` }}
-                  >
-                    <span className="text-sm text-gray-400 dark:text-gray-500 font-mono mr-4 group-hover:text-indigo-400 transition-colors">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white group-hover:bg-gradient-to-r group-hover:from-indigo-600 group-hover:to-purple-600 dark:group-hover:from-indigo-400 dark:group-hover:to-purple-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
-                      {l.label}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-
-              <div
-                className={`mt-10 pt-6 border-t border-gray-100 dark:border-gray-800 px-2 transition-all duration-500 delay-700 ${open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            <div className="relative px-6 pt-8 pb-6 text-center">
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
               >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              <div className="mb-8">
+                <img
+                  src="/logo.svg"
+                  alt="Beresin"
+                  width="120"
+                  height="120"
+                  className="h-8 w-auto mx-auto mb-2"
+                />
+                <p className="text-xs text-gray-400 dark:text-gray-500">
+                  Menu Navigasi
+                </p>
+              </div>
+
+              <div className="space-y-1.5">
+                {links.map((l, i) => {
+                  const active = isActive(l.to);
+                  return (
+                    <Link
+                      key={l.to}
+                      to={l.to}
+                      onClick={() => setOpen(false)}
+                      className={`group flex items-center justify-between px-5 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        active
+                          ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                      }`}
+                    >
+                      <span>{l.label}</span>
+                      <span
+                        className={`text-xs font-mono font-bold px-2 py-0.5 rounded-md transition-all ${
+                          active
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600'
+                        }`}
+                      >
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              <div className="mt-8 pt-5 border-t border-gray-100 dark:border-gray-800">
                 <Link
                   to="/kontak"
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded-xl hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 transition-all active:scale-[0.97]"
                 >
                   Pesan Sekarang
                   <svg
@@ -246,7 +267,7 @@ export default function Navbar() {
                     />
                   </svg>
                 </Link>
-                <p className="mt-3 text-xs text-gray-400 dark:text-gray-500">
+                <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
                   Konsultasi gratis
                 </p>
               </div>
