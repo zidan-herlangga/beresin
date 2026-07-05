@@ -156,6 +156,7 @@
         "@type": "Product",
         "name": "Jasa Joki Tugas",
         "description": "Jasa pengerjaan tugas sekolah dan kuliah, termasuk makalah, esai, programming, desain, dan riset",
+        "image": ["https://beresintugas.vercel.app/og-image.jpg"],
         "brand": { "@type": "Brand", "name": "Beresin" },
         "offers": [
           {
@@ -163,23 +164,57 @@
             "name": "Paket Pelajar",
             "price": "25000",
             "priceCurrency": "IDR",
-            "description": "PR, makalah singkat, revisi 1x"
+            "description": "PR, makalah singkat, revisi 1x",
+            "availability": "https://schema.org/InStock"
           },
           {
             "@type": "Offer",
             "name": "Paket Mahasiswa",
             "price": "250000",
             "priceCurrency": "IDR",
-            "description": "Esai, jurnal, laporan praktikum, revisi 2x, cek Turnitin"
+            "description": "Esai, jurnal, laporan praktikum, revisi 2x, cek Turnitin",
+            "availability": "https://schema.org/InStock"
           },
           {
             "@type": "Offer",
             "name": "Paket PRO",
             "price": "500000",
             "priceCurrency": "IDR",
-            "description": "Programming, skripsi, desain, revisi 3x, prioritas"
+            "description": "Programming, skripsi, desain, revisi 3x, prioritas",
+            "availability": "https://schema.org/InStock"
           }
-        ]
+        ],
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "ID"
+          },
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": 0,
+            "currency": "IDR"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "value": 1,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "ID",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+        }
       }
     </script>
   </head>
