@@ -98,6 +98,16 @@ async function start() {
     req.pipe(busboy);
   });
 
+  const ogHandler = await loadHandler("api/og.js");
+  const CRAWLER_RE = /bot|crawler|spider|facebookexternalhit|twitterbot|linkedinbot|slack|discord|whatsapp|telegram|pinterest/i;
+  app.use((req, res, next) => {
+    if (CRAWLER_RE.test(req.headers["user-agent"] || "")) {
+      req.query = { path: req.originalUrl };
+      return ogHandler(req, res);
+    }
+    next();
+  });
+
   app.listen(3000, () => {
     console.log("API server running at http://localhost:3000");
   });

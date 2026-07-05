@@ -61,6 +61,8 @@ const defaultData = {
   },
 };
 
+export { defaultData };
+
 export default async function handler(req, res) {
   const page = req.query.page || req.body?.page;
 

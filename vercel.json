@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/api/og?path=$1", "has": [{ "type": "header", "key": "user-agent", "value": "(?i)(bot|crawler|spider|facebookexternalhit|twitterbot|linkedinbot|slack|discord|whatsapp|telegram|pinterest)" }] },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

@@ -7,7 +7,8 @@
     "dev": "concurrently \"node dev.cjs\" \"vite\"",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-og": "node scripts/generate-og.js"
   },
   "dependencies": {
     "@tinymce/tinymce-react": "^6.3.0",
@@ -30,6 +31,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
+    "puppeteer": "^25.3.0",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.3.2",
     "vite": "^8.1.1"
   }

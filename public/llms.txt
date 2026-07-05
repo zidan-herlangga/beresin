@@ -1,0 +1,11 @@
+# Beresin - Jasa Joki Tugas Sekolah & Kuliah
+
+Beresin adalah platform jasa pengerjaan tugas sekolah dan kuliah online di Indonesia. Melayani pengerjaan makalah, esai, programming, desain, riset, dan skripsi dengan harga ramah pelajar.
+
+- [Beranda](https://beresintugas.vercel.app/)
+- [Layanan](https://beresintugas.vercel.app/layanan)
+- [Cara Order](https://beresintugas.vercel.app/cara-order)
+- [Tentang](https://beresintugas.vercel.app/tentang)
+- [Blog](https://beresintugas.vercel.app/blog)
+- [Kontak](https://beresintugas.vercel.app/kontak)
+- [Syarat & Ketentuan](https://beresintugas.vercel.app/)
