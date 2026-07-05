@@ -40,10 +40,7 @@ export default function Hero() {
 
         <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold text-gray-900 dark:text-white leading-[0.85] tracking-tighter">
           <span className="block opacity-0 animate-float-up">Tugas</span>
-          <span
-            className="block mt-1 opacity-0 animate-float-up"
-            style={{ animationDelay: '0.15s' }}
-          >
+          <span className="block mt-1 opacity-0 animate-float-up">
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 via-pink-500 via-amber-400 to-indigo-600 bg-clip-text text-transparent animate-gradient-shift">
               Menumpuk?
             </span>
