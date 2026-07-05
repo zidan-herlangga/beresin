@@ -69,44 +69,19 @@ export default function BlogDetail() {
     }
   }, [beranda, slug]);
 
-  const fallback = {
-    title: 'Tips Mengerjakan Skripsi dalam 3 Bulan',
-    slug: 'tips-mengerjakan-skripsi-dalam-3-bulan',
-    tag: 'Tips',
-    date: '15 Mar 2026',
-    excerpt:
-      'Panduan praktis menyelesaikan skripsi tepat waktu tanpa stres berlebihan.',
-    image:
-      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80',
-    content: `<p>Skripsi sering menjadi momok bagi mahasiswa semester akhir. Namun dengan strategi yang tepat, kamu bisa menyelesaikannya dalam 3 bulan.</p>
-<h2>1. Tentukan Topik di Bulan Pertama</h2>
-<p>Pilih topik yang kamu kuasai dan sesuai dengan bidang studimu. Konsultasikan dengan dosen pembimbing sejak awal.</p>
-<h2>2. Bab 1-3 di Bulan Kedua</h2>
-<p>Fokus pada proposal skripsi. Cari referensi minimal 20 jurnal terbaru untuk landasan teori yang kuat.</p>
-<h2>3. Bab 4-5 dan Sidang di Bulan Ketiga</h2>
-<p>Setelah proposal ACC, langsung olah data dan tulis hasil penelitian. Jangan lupa konsultasi rutin setiap minggu.</p>
-<h2>Tips Tambahan</h2>
-<ul>
-<li>Gunakan Mendeley/Zotero untuk referensi</li>
-<li>Backup data setiap hari</li>
-<li>Istirahat cukup, jangan lembur berlebihan</li>
-</ul>
-<p>Dengan perencanaan yang matang, skripsi 3 bulan bukan mimpi!</p>`,
-  };
-
-  const a = article || fallback;
+  const a = article;
   const pageUrl = window.location.href;
   const siteUrl = window.location.origin;
 
   useMeta({
-    title: a.title,
-    description: a.excerpt,
-    image: a.image,
+    title: a?.title,
+    description: a?.excerpt,
+    image: a?.image,
     url: pageUrl,
     type: 'article',
   });
 
-  useJsonLd({
+  useJsonLd(a ? {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: a.title,
@@ -120,12 +95,18 @@ export default function BlogDetail() {
       logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.svg` },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
-  });
+  } : null);
 
   const stripHtml = (html) => html?.replace(/<[^>]*>/g, '') || '';
-  const readingTime = Math.max(
+  const readingTime = a ? Math.max(
     1,
     Math.ceil((stripHtml(a.content).split(/\s+/).length || 0) / 200),
+  ) : 0;
+
+  if (!a) return (
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-28 pb-16 flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+    </main>
   );
 
   return (
