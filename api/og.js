@@ -119,6 +119,7 @@ async function getMeta(path) {
 
 export default async function handler(req, res) {
   let path = req.query.path || new URL(req.url, BASE).pathname;
+  if (!path || path === "/api/og") path = "/";
   if (!path.startsWith("/")) path = "/" + path;
 
   const meta = await getMeta(path);
