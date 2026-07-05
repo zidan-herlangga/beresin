@@ -8,6 +8,11 @@ function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 }
 
+function optimizeImage(url) {
+  if (!url || !url.includes("res.cloudinary.com")) return url || "";
+  return url.replace("/upload/", "/upload/w_1200,h_630,c_fill,q_auto,f_auto/");
+}
+
 function metaTag(property, content) {
   return content ? `<meta property="${property}" content="${escapeHtml(content)}" />\n` : "";
 }
@@ -25,6 +30,8 @@ ${metaTag("og:url", url)}
 ${metaTag("og:title", title)}
 ${metaTag("og:description", description)}
 ${metaTag("og:image", image)}
+${metaTag("og:image:width", "1200")}
+${metaTag("og:image:height", "630")}
 ${metaTag("og:site_name", "Beresin - Joki Tugas Sekolah & Kuliah")}
 ${metaTag("twitter:card", "summary_large_image")}
 ${metaTag("twitter:title", title)}
@@ -106,7 +113,7 @@ async function getMeta(path) {
       return {
         title: `${article.title} — Beresin Tugas`,
         description: article.excerpt || article.title,
-        image: article.image || DEFAULT_IMAGE,
+        image: optimizeImage(article.image) || DEFAULT_IMAGE,
         url: `${BASE}/blog/${encodeURIComponent(slug)}`,
         type: "article",
       };
@@ -114,7 +121,8 @@ async function getMeta(path) {
     return pageMeta["/blog"];
   }
 
-  return pageMeta[path] || pageMeta["/"];
+  const meta = pageMeta[path] || pageMeta["/"];
+  return { ...meta, image: optimizeImage(meta.image) };
 }
 
 export default async function handler(req, res) {
