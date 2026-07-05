@@ -1,9 +1,10 @@
 import { getCollection } from "./lib/db.js";
 import jwt from "jsonwebtoken";
 
-const SECRET = process.env.JWT_SECRET || "beresin-admin-secret-2024";
+const SECRET = process.env.JWT_SECRET;
 
 function verifyToken(req) {
+  if (!SECRET) return false;
   const auth = req.headers.authorization;
   if (!auth || !auth.startsWith("Bearer ")) return false;
   try {

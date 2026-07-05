@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useContent } from '../hooks/useContent';
 import ShareButtons from '../components/ShareButtons';
 import { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 
 function useMeta({ title, description, image, url, type = 'article' }) {
   useEffect(() => {
@@ -239,7 +240,7 @@ export default function BlogDetail() {
 
         <div
           className="blog-content"
-          dangerouslySetInnerHTML={{ __html: a.content || '' }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(a.content || '') }}
         />
 
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700/50">

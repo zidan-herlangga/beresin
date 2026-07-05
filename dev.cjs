@@ -5,7 +5,7 @@ const fs = require("fs");
 const Busboy = require("busboy");
 const { randomUUID } = require("crypto");
 
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_SIZE = 5 * 1024 * 1024;
 
 async function loadHandler(modPath) {
@@ -17,6 +17,15 @@ async function loadHandler(modPath) {
 
 async function start() {
   const app = express();
+
+  const helmet = (await import("helmet")).default;
+  const rateLimit = (await import("express-rate-limit")).default;
+  const cors = (await import("cors")).default;
+
+  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(cors({ origin: true, credentials: false }));
+  app.use("/api/contact", rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: { error: "Terlalu banyak permintaan" } }));
+  app.use("/api/admin", rateLimit({ windowMs: 15 * 60 * 1000, max: 20, message: { error: "Terlalu banyak permintaan" } }));
   app.use(express.json({ limit: "5mb" }));
 
   // serve uploaded files

@@ -12,7 +12,7 @@ if (process.env.CLOUDINARY_CLOUD_NAME) {
   });
 }
 
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_SIZE = 5 * 1024 * 1024;
 
 export const config = { api: { bodyParser: false } };

@@ -1,8 +1,12 @@
 import jwt from "jsonwebtoken";
 
-const SECRET = process.env.JWT_SECRET || "beresin-admin-secret-2024";
+const SECRET = process.env.JWT_SECRET;
 
 export default async function handler(req, res) {
+  if (!SECRET) {
+    return res.status(500).json({ valid: false, error: "Server configuration error" });
+  }
+
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }

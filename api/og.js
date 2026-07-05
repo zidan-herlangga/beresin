@@ -1,12 +1,13 @@
-import { defaultData } from "./content.js";
-import { getCollection } from "./lib/db.js";
-
 const BASE = "https://beresintugas.vercel.app";
 const DEFAULT_IMAGE = `${BASE}/og-image.jpg`;
-const SITE_NAME = "Beresin - Joki Tugas Sekolah & Kuliah";
+const FB_APP_ID = "";
 
-function escape(str) {
-  return str.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+function metaTag(property, content) {
+  return content ? `<meta property="${property}" content="${escapeHtml(content)}" />\n` : "";
 }
 
 function html({ title, description, image, url, type = "website" }) {
@@ -14,40 +15,33 @@ function html({ title, description, image, url, type = "website" }) {
 <html lang="id">
 <head>
 <meta charset="UTF-8" />
-<title>${escape(title)}</title>
-<meta name="description" content="${escape(description)}" />
-<meta property="og:type" content="${type}" />
-<meta property="og:url" content="${escape(url)}" />
-<meta property="og:title" content="${escape(title)}" />
-<meta property="og:description" content="${escape(description)}" />
-<meta property="og:image" content="${escape(image)}" />
-<meta property="og:site_name" content="${escape(SITE_NAME)}" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="${escape(title)}" />
-<meta name="twitter:description" content="${escape(description)}" />
-<meta name="twitter:image" content="${escape(image)}" />
-<script>location.href="${escape(url)}"</script>
+<title>${escapeHtml(title)}</title>
+<meta name="description" content="${escapeHtml(description)}" />
+${metaTag("fb:app_id", FB_APP_ID)}
+${metaTag("og:type", type)}
+${metaTag("og:url", url)}
+${metaTag("og:title", title)}
+${metaTag("og:description", description)}
+${metaTag("og:image", image)}
+${metaTag("og:site_name", "Beresin - Joki Tugas Sekolah & Kuliah")}
+${metaTag("twitter:card", "summary_large_image")}
+${metaTag("twitter:title", title)}
+${metaTag("twitter:description", description)}
+${metaTag("twitter:image", image)}
 </head>
 <body>
-<p>Redirecting...</p>
 </body>
 </html>`;
 }
 
-async function findBlog(slug) {
-  const fromDefault = (defaultData.beranda.blog || []).find((a) => a.slug === slug);
-  if (fromDefault) return fromDefault;
+const BLOG_DATA = [
+  { title: "Tips Mengerjakan Skripsi dalam 3 Bulan", slug: "tips-mengerjakan-skripsi-dalam-3-bulan", tag: "Tips", date: "15 Mar 2026", excerpt: "Panduan praktis menyelesaikan skripsi tepat waktu tanpa stres berlebihan.", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80" },
+  { title: "5 Aplikasi AI yang Bantu Tugas Kuliah", slug: "5-aplikasi-ai-yang-bantu-tugas-kuliah", tag: "Teknologi", date: "10 Feb 2026", excerpt: "Manfaatkan AI untuk membantu riset dan penulisan tugas kuliahmu.", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80" },
+  { title: "Cara Membuat Makalah yang Baik", slug: "cara-membuat-makalah-yang-baik", tag: "Panduan", date: "5 Jan 2026", excerpt: "Struktur dan tips menulis makalah yang benar agar mendapat nilai A.", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80" },
+];
 
-  try {
-    const col = await getCollection("content");
-    if (col) {
-      const doc = await col.findOne({ page: "beranda" });
-      if (doc?.data?.blog) {
-        return doc.data.blog.find((a) => a.slug === slug);
-      }
-    }
-  } catch {}
-  return null;
+function findBlog(slug) {
+  return BLOG_DATA.find((a) => a.slug === slug) || null;
 }
 
 const pageMeta = {
@@ -89,17 +83,17 @@ const pageMeta = {
   },
 };
 
-async function getMeta(path) {
-  const blogMatch = path.match(/^\/blog\/([^/]+)/);
+function getMeta(path) {
+  const blogMatch = path.match(/^\/blog\/(.+)/);
   if (blogMatch) {
     const slug = blogMatch[1];
-    const article = await findBlog(slug);
+    const article = findBlog(slug);
     if (article) {
       return {
         title: `${article.title} — Beresin Tugas`,
         description: article.excerpt || article.title,
         image: article.image || DEFAULT_IMAGE,
-        url: `${BASE}/blog/${slug}`,
+        url: `${BASE}/blog/${encodeURIComponent(slug)}`,
         type: "article",
       };
     }
@@ -109,10 +103,11 @@ async function getMeta(path) {
   return pageMeta[path] || pageMeta["/"];
 }
 
-export default async function handler(req, res) {
-  const path = req.query.path || new URL(req.url, BASE).pathname;
+export default function handler(req, res) {
+  let path = req.query.path || new URL(req.url, BASE).pathname;
+  if (!path.startsWith("/")) path = "/" + path;
 
-  const meta = await getMeta(path);
+  const meta = getMeta(path);
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.status(200).send(html(meta));
 }

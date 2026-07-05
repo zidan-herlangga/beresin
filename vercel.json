@@ -1,7 +1,25 @@
 {
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/api/og?path=$1", "has": [{ "type": "header", "key": "user-agent", "value": "(?i)(bot|crawler|spider|facebookexternalhit|twitterbot|linkedinbot|slack|discord|whatsapp|telegram|pinterest)" }] },
+    { "source": "/(.*)", "destination": "/api/og?path=$1", "has": [{ "type": "header", "key": "user-agent", "value": "([Bb][Oo][Tt]|[Cc][Rr][Aa][Ww][Ll][Ee][Rr]|[Ss][Pp][Ii][Dd][Ee][Rr]|[Ff][Aa][Cc][Ee][Bb][Oo][Oo][Kk]|[Tt][Ww][Ii][Tt][Tt][Ee][Rr]|[Ll][Ii][Nn][Kk][Ee][Dd][Ii][Nn]|[Ss][Ll][Aa][Cc][Kk]|[Dd][Ii][Ss][Cc][Oo][Rr][Dd]|[Ww][Hh][Aa][Tt][Ss][Aa][Pp][Pp]|[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]|[Pp][Ii][Nn][Tt][Ee][Rr][Ee][Ss][Tt])" }] },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
