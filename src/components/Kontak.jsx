@@ -108,16 +108,9 @@ export default function Kontak() {
       setStatus({ type: 'error', message: json.error || 'Gagal mengirim pesan.' });
       setLoading(false);
       return;
-    } catch {}
-
-    const body = encodeURIComponent(
-      `Halo Beresin!%0A%0ANama: ${data.nama}%0AEmail: ${data.email}%0APesan: ${data.pesan}`,
-    );
-    window.open(`https://wa.me/6285157066514?text=${body}`, '_blank');
-    setStatus({
-      type: 'success',
-      message: 'Form terkirim! Lanjutkan chat di WhatsApp.',
-    });
+    } catch {
+      setStatus({ type: 'error', message: 'Gagal mengirim pesan. Coba lagi nanti.' });
+    }
     setLoading(false);
   };
 

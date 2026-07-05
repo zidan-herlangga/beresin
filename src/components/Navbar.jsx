@@ -37,12 +37,12 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2.5 group">
               <img
-                src="/logo-beresintugas.svg"
+                src="/logo.svg"
                 alt="Beresin"
                 width="120"
                 height="120"
                 className="h-8 w-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
-                fetchpriority="high"
+                fetchPriority="high"
               />
               <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
                 Beresin
@@ -189,7 +189,8 @@ export default function Navbar() {
             <div className="relative px-6 pt-8 pb-6 text-center">
               <button
                 onClick={() => setOpen(false)}
-                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+                aria-label="Tutup menu"
+                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
               >
                 <svg
                   className="w-4 h-4"
@@ -213,7 +214,7 @@ export default function Navbar() {
                   height="120"
                   className="h-8 w-auto mx-auto mb-2"
                 />
-                <p className="text-xs text-gray-400 dark:text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   Menu Navigasi
                 </p>
               </div>
@@ -237,7 +238,7 @@ export default function Navbar() {
                         className={`text-xs font-mono font-bold px-2 py-0.5 rounded-md transition-all ${
                           active
                             ? 'bg-indigo-600 text-white'
-                            : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600'
+                            : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-600'
                         }`}
                       >
                         {String(i + 1).padStart(2, '0')}
@@ -267,7 +268,7 @@ export default function Navbar() {
                     />
                   </svg>
                 </Link>
-                <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                   Konsultasi gratis
                 </p>
               </div>

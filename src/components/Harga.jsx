@@ -126,14 +126,14 @@ export default function Harga() {
               </h3>
 
               <div className="mt-2 flex items-baseline gap-0.5">
-                <span className="text-sm text-gray-400 dark:text-gray-500">Rp</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">Rp</span>
                 <span className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                   {plan.price}
                 </span>
-                <span className="text-sm text-gray-400 dark:text-gray-500">.{plan.unit}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">.{plan.unit}</span>
               </div>
 
-              <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">{plan.desc}</p>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{plan.desc}</p>
 
               <ul className="mt-6 space-y-2.5">
                 {plan.features.map((f, i) => (
@@ -164,7 +164,7 @@ export default function Harga() {
           ))}
         </div>
 
-        <p className="text-center text-[11px] text-gray-400 dark:text-gray-500 mt-8">
+        <p className="text-center text-[11px] text-gray-500 dark:text-gray-400 mt-8">
           *Harga dapat berubah tergantung tingkat kesulitan dan deadline
         </p>
       </div>

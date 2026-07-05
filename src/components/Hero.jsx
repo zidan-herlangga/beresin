@@ -102,7 +102,7 @@ export default function Hero() {
               <div className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                 <AnimatedCounter end={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 mt-0.5 font-medium">
+              <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5 font-medium">
                 {stat.label}
               </div>
             </div>

@@ -36,7 +36,7 @@ export default function Preloader() {
       <div className="text-center">
         <div className="relative">
           <img
-            src="/logo-beresintugas.svg"
+            src="/logo.svg"
             alt="Beresin"
             width="120"
             height="120"

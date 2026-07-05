@@ -119,7 +119,7 @@ export default function Testimoni() {
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">
                         {t.name}
                       </p>
-                      <p className="text-xs text-gray-400 dark:text-gray-500">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         {t.role}
                       </p>
                     </div>
@@ -133,14 +133,17 @@ export default function Testimoni() {
                 <button
                   key={i}
                   onClick={() => setActive(i)}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                  aria-label={`Lihat testimoni ${i + 1}`}
+                  className="flex items-center justify-center h-11"
+                >
+                  <span className={`block h-1.5 rounded-full transition-all duration-500 ${
                     i === active
                       ? 'w-10 bg-gradient-to-r from-indigo-600 to-purple-600'
                       : 'w-1.5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-                  }`}
-                />
+                  }`} />
+                </button>
               ))}
-              <span className="ml-auto text-[11px] text-gray-400 dark:text-gray-500 font-medium">
+              <span className="ml-auto text-[11px] text-gray-500 dark:text-gray-400 font-medium">
                 {active + 1}/{testimonials.length}
               </span>
             </div>
@@ -167,7 +170,7 @@ export default function Testimoni() {
                     <p className="text-xs font-semibold text-gray-900 dark:text-white truncate">
                       {t.name}
                     </p>
-                    <p className="text-[10px] text-gray-400 dark:text-gray-500 truncate">
+                    <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">
                       {t.role}
                     </p>
                   </div>

@@ -60,6 +60,6 @@ export default async function handler(req, res) {
     res.status(200).json({ success: true, message: "Pesan berhasil dikirim!" });
   } catch (err) {
     console.error("Email error:", err);
-    res.status(500).json({ error: "Gagal mengirim pesan. Coba lagi nanti." });
+    res.status(500).json({ error: "Gagal mengirim pesan. Coba lagi nanti.", detail: err.message });
   }
 }
