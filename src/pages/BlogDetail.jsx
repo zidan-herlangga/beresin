@@ -299,7 +299,41 @@ export default function BlogDetail() {
             </div>
           </div>
         </div>
+
+        {beranda?.blog && (
+          <RelatedPosts current={a} all={beranda.blog} />
+        )}
       </div>
     </main>
+  );
+}
+
+function RelatedPosts({ current, all }) {
+  const related = all.filter((a) => a.tag === current.tag && a.slug !== current.slug).slice(0, 3);
+  if (related.length === 0) return null;
+
+  return (
+    <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-gray-200 dark:border-gray-700/50">
+      <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-6">
+        Artikel Terkait
+      </h2>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {related.map((a) => (
+          <Link
+            key={a.slug}
+            to={`/blog/${a.slug}`}
+            className="group block rounded-xl bg-white dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/40 hover:border-indigo-200/50 dark:hover:border-indigo-600/30 overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
+          >
+            <div className="w-full h-28 overflow-hidden">
+              <img src={a.image} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            </div>
+            <div className="p-3">
+              <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300">{a.tag}</span>
+              <h3 className="mt-1.5 text-xs font-bold text-gray-900 dark:text-white leading-snug line-clamp-2">{a.title}</h3>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }

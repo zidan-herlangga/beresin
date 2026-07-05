@@ -1,11 +1,3 @@
-# Beresin - SEO
-# Allow all crawlers
 User-agent: *
 Allow: /
-
-# Sitemap
 Sitemap: https://beresintugas.vercel.app/api/sitemap
-
-# Block admin/internal pages (if any)
-Disallow: /dist/
-Disallow: /node_modules/

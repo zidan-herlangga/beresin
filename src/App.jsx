@@ -20,6 +20,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import SyaratKetentuan from "./components/SyaratKetentuan";
 import CookieConsent from "./components/CookieConsent";
 import Preloader from "./components/Preloader";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const Tentang = lazy(() => import("./pages/Tentang"));
 const LayananPage = lazy(() => import("./pages/Layanan"));
@@ -62,7 +63,9 @@ function App() {
     <>
       <Navbar />
       <Suspense fallback={<PageFallback />}>
-        {page}
+        <ErrorBoundary>
+          {page}
+        </ErrorBoundary>
       </Suspense>
       <Footer onOpenSyarat={() => setSyaratOpen(true)} />
       <FloatingButton />
