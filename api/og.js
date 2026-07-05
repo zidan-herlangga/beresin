@@ -1,3 +1,5 @@
+import { getCollection } from "./lib/db.js";
+
 const BASE = "https://beresintugas.vercel.app";
 const DEFAULT_IMAGE = `${BASE}/og-image.jpg`;
 const FB_APP_ID = "";
@@ -40,8 +42,20 @@ const BLOG_DATA = [
   { title: "Cara Membuat Makalah yang Baik", slug: "cara-membuat-makalah-yang-baik", tag: "Panduan", date: "5 Jan 2026", excerpt: "Struktur dan tips menulis makalah yang benar agar mendapat nilai A.", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80" },
 ];
 
-function findBlog(slug) {
-  return BLOG_DATA.find((a) => a.slug === slug) || null;
+async function findBlog(slug) {
+  const fromHardcoded = BLOG_DATA.find((a) => a.slug === slug);
+  if (fromHardcoded) return fromHardcoded;
+
+  try {
+    const col = await getCollection("content");
+    if (col) {
+      const doc = await col.findOne({ page: "beranda" });
+      if (doc?.data?.blog) {
+        return doc.data.blog.find((a) => a.slug === slug) || null;
+      }
+    }
+  } catch {}
+  return null;
 }
 
 const pageMeta = {
@@ -83,11 +97,11 @@ const pageMeta = {
   },
 };
 
-function getMeta(path) {
+async function getMeta(path) {
   const blogMatch = path.match(/^\/blog\/(.+)/);
   if (blogMatch) {
     const slug = blogMatch[1];
-    const article = findBlog(slug);
+    const article = await findBlog(slug);
     if (article) {
       return {
         title: `${article.title} — Beresin Tugas`,
@@ -103,11 +117,11 @@ function getMeta(path) {
   return pageMeta[path] || pageMeta["/"];
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   let path = req.query.path || new URL(req.url, BASE).pathname;
   if (!path.startsWith("/")) path = "/" + path;
 
-  const meta = getMeta(path);
+  const meta = await getMeta(path);
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.status(200).send(html(meta));
 }
