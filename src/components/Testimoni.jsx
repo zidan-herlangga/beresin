@@ -134,7 +134,7 @@ export default function Testimoni() {
                   key={i}
                   onClick={() => setActive(i)}
                   aria-label={`Lihat testimoni ${i + 1}`}
-                  className="flex items-center justify-center h-11"
+                  className="flex items-center justify-center h-12 w-12"
                 >
                   <span className={`block h-1.5 rounded-full transition-all duration-500 ${
                     i === active

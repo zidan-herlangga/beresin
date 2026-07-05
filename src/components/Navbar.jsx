@@ -38,7 +38,7 @@ export default function Navbar() {
             <Link to="/" className="flex items-center gap-2.5 group">
               <img
                 src="/logo.svg"
-                alt="Beresin"
+                alt="Beresin Logo"
                 width="120"
                 height="120"
                 className="h-8 w-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
@@ -152,6 +152,7 @@ export default function Navbar() {
               </button>
               <button
                 onClick={() => setOpen(true)}
+                aria-label="Buka menu"
                 className="relative w-9 h-9 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
               >
                 <svg

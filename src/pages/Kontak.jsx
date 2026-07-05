@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useInView from '../hooks/useInView';
-import { useContent } from "../hooks/useContent";
+import { useContent } from '../hooks/useContent';
 
 const defaultContacts = [
   {
@@ -59,7 +59,7 @@ const defaultContacts = [
 ];
 
 export default function Kontak() {
-  const { data: content } = useContent("kontak");
+  const { data: content } = useContent('kontak');
 
   const apiContacts = content?.contacts;
   const contacts = apiContacts
@@ -106,11 +106,17 @@ export default function Kontak() {
         setLoading(false);
         return;
       }
-      setStatus({ type: 'error', message: json.error || 'Gagal mengirim pesan.' });
+      setStatus({
+        type: 'error',
+        message: json.error || 'Gagal mengirim pesan.',
+      });
       setLoading(false);
       return;
     } catch {
-      setStatus({ type: 'error', message: 'Gagal mengirim pesan. Coba lagi nanti.' });
+      setStatus({
+        type: 'error',
+        message: 'Gagal mengirim pesan. Coba lagi nanti.',
+      });
     }
     setLoading(false);
   };
