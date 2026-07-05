@@ -202,8 +202,8 @@ const defaultData = {
       { value: 4.9, suffix: "", label: "Rating" },
     ],
     tim: [
-      { name: "Zidan Herlangga", role: "Founder & Project Manager", initials: "ZH", gradient: "from-indigo-500 to-purple-500" },
-      { name: "Aldo Moroseto", role: "Lead Developer", initials: "AM", gradient: "from-purple-500 to-pink-500" },
+      { name: "Zidan Herlangga", role: "Founder & Project Manager", photo: "", desc: "Ahli algoritma & pengembangan web. Lulusan Ilmu Komputer.", bio: "Founder Beresin dengan latar belakang Ilmu Komputer.", skills: "React, Node.js, Python, Database, Project Management", education: "S1 Ilmu Komputer", social_ig: "zidanherlangga", social_github: "zidan-herlangga" },
+      { name: "Aldo Moroseto", role: "Lead Developer", photo: "", desc: "Pengelola operasional dan strategi brand Beresin.", bio: "Ahli strategi bisnis dan marketing.", skills: "Digital Marketing, Brand Strategy, Operations, Content Writing", education: "S1 Manajemen Bisnis", social_ig: "aldomoroseto", social_linkedin: "aldo-moroseto" },
     ],
     values: [
       { title: "Trusted", desc: "Kami mengutamakan kepercayaan. Data pribadimu aman bersama kami." },

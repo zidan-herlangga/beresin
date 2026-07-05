@@ -528,6 +528,111 @@ function ArrayEditor({ label, items, onUpdate, fields, itemLabel }) {
   );
 }
 
+/* ─── Team Member Editor ─── */
+function TeamMemberEditor({ items, onUpdate }) {
+  const addItem = () => {
+    onUpdate([...items, {
+      name: '',
+      role: '',
+      photo: '',
+      desc: '',
+      bio: '',
+      education: '',
+      skills: '',
+      social_ig: '',
+      social_github: '',
+      social_linkedin: '',
+    }]);
+  };
+  const removeItem = (idx) => {
+    if (items.length <= 1) return;
+    onUpdate(items.filter((_, i) => i !== idx));
+  };
+  const updateItem = (idx, key, val) => {
+    const c = [...items];
+    c[idx] = { ...c[idx], [key]: val };
+    onUpdate(c);
+  };
+  const moveItem = (from, to) => {
+    const c = [...items];
+    const [m] = c.splice(from, 1);
+    c.splice(to, 0, m);
+    onUpdate(c);
+  };
+
+  return (
+    <div className="mb-6">
+      <div className="flex items-center justify-between mb-4 px-1">
+        <div className="flex items-center gap-2.5">
+          <div className="w-1 h-4 rounded-full bg-gradient-to-b from-indigo-400/60 to-purple-500/60" />
+          <h3 className="text-sm font-bold text-gray-200">Tim</h3>
+          {items.length > 0 && (
+            <span className="text-[11px] text-gray-600 bg-white/[0.04] px-2 py-0.5 rounded-full font-mono">{items.length}</span>
+          )}
+        </div>
+        <button onClick={addItem} className="flex items-center gap-1.5 text-xs px-4 py-2 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 font-medium rounded-xl border border-indigo-500/20 hover:border-indigo-500/30 transition-all active:scale-95 shadow-sm">
+          <Svg d={icons.plus} className="w-3.5 h-3.5" /> Tambah Anggota
+        </button>
+      </div>
+      {items.length === 0 ? (
+        <div className="text-center py-12 text-gray-500 text-sm border border-dashed border-white/[0.06] rounded-2xl bg-white/[0.01]">
+          <div className="w-12 h-12 mx-auto rounded-xl bg-white/[0.03] flex items-center justify-center mb-3">
+            <Svg d={icons.file} className="w-6 h-6 text-gray-600" />
+          </div>
+          <p>Belum ada anggota tim</p>
+          <button onClick={addItem} className="mt-3 text-xs text-indigo-400 hover:text-indigo-300 bg-indigo-600/10 hover:bg-indigo-600/20 px-3 py-1.5 rounded-lg transition-all">+ Tambah Sekarang</button>
+        </div>
+      ) : (
+        items.map((item, idx) => (
+          <ItemCard key={idx} index={idx} onRemove={() => removeItem(idx)} canRemove={items.length > 1} onMoveUp={moveItem} isFirst={idx === 0} isLast={idx === items.length - 1}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-1">
+              <div className="mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">Nama</label>
+                <input type="text" value={item.name || ''} onChange={(e) => updateItem(idx, 'name', e.target.value)} placeholder="Nama anggota" className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 transition-all" />
+              </div>
+              <div className="mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">Role / Jabatan</label>
+                <input type="text" value={item.role || ''} onChange={(e) => updateItem(idx, 'role', e.target.value)} placeholder="Lead Developer" className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 transition-all" />
+              </div>
+              <div className="sm:col-span-2 mb-0">
+                <ImageUpload value={item.photo || ''} onChange={(v) => updateItem(idx, 'photo', v)} label="Foto Profil" />
+              </div>
+              <div className="sm:col-span-2 mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">Deskripsi Singkat</label>
+                <textarea value={item.desc || ''} onChange={(e) => updateItem(idx, 'desc', e.target.value)} rows={2} placeholder="Ahli algoritma &amp; pengembangan web." className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 focus:ring-1 focus:ring-indigo-500/10 transition-all resize-none" />
+              </div>
+              <div className="sm:col-span-2 mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">Bio / Tentang (profil lengkap)</label>
+                <textarea value={item.bio || ''} onChange={(e) => updateItem(idx, 'bio', e.target.value)} rows={3} placeholder="Cerita lengkap tentang anggota tim..." className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 focus:ring-1 focus:ring-indigo-500/10 transition-all resize-none" />
+              </div>
+              <div className="mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">Pendidikan</label>
+                <input type="text" value={item.education || ''} onChange={(e) => updateItem(idx, 'education', e.target.value)} placeholder="S1 Ilmu Komputer" className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 transition-all" />
+              </div>
+              <div className="mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">Keahlian (pisah dgn koma)</label>
+                <input type="text" value={item.skills || ''} onChange={(e) => updateItem(idx, 'skills', e.target.value)} placeholder="React, Node.js, Python" className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 transition-all" />
+              </div>
+              <div className="mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">Instagram</label>
+                <input type="text" value={item.social_ig || ''} onChange={(e) => updateItem(idx, 'social_ig', e.target.value)} placeholder="username" className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 transition-all" />
+              </div>
+              <div className="mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">GitHub</label>
+                <input type="text" value={item.social_github || ''} onChange={(e) => updateItem(idx, 'social_github', e.target.value)} placeholder="username" className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 transition-all" />
+              </div>
+              <div className="mb-0">
+                <label className="block text-[11px] text-gray-500 mb-1 font-semibold tracking-wider">LinkedIn</label>
+                <input type="text" value={item.social_linkedin || ''} onChange={(e) => updateItem(idx, 'social_linkedin', e.target.value)} placeholder="username" className="w-full px-3 py-2.5 bg-black/30 border border-white/[0.06] rounded-lg text-white placeholder-gray-700 text-xs focus:outline-none focus:border-indigo-500/40 transition-all" />
+              </div>
+            </div>
+          </ItemCard>
+        ))
+      )}
+    </div>
+  );
+}
+
 /* ─── Nested Array Editor ─── */
 function NestedArrayEditor({ label, items, onUpdate, config }) {
   const addItem = () => {
@@ -1523,17 +1628,9 @@ function TentangEditor({ data, setData }) {
         />
       )}
       {section === 'tim' && (
-        <ArrayEditor
-          label="Anggota"
+        <TeamMemberEditor
           items={data.tim || []}
           onUpdate={(v) => set('tim', v)}
-          itemLabel="Anggota"
-          fields={[
-            { key: 'name', label: 'Nama' },
-            { key: 'role', label: 'Role' },
-            { key: 'initials', label: 'Inisial' },
-            { key: 'gradient', label: 'Gradient' },
-          ]}
         />
       )}
       {section === 'values' && (
