@@ -23,6 +23,7 @@ function escapeJson(str) {
 
 function jsonLd(path) {
   if (path !== "/") return "";
+  const offerTmpl = (name, price, desc) => `{ "@type": "Offer", "name": "${name}", "price": "${price}", "priceCurrency": "IDR", "description": "${desc}", "availability": "https://schema.org/InStock", "shippingDetails": { "@type": "OfferShippingDetails", "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ID" }, "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "IDR" }, "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" }, "transitTime": { "@type": "QuantitativeValue", "value": 1, "unitCode": "DAY" } } }, "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "ID", "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted" } }`;
   return `<script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -32,25 +33,10 @@ function jsonLd(path) {
   "image": ["${BASE}/og-image.jpg"],
   "brand": { "@type": "Brand", "name": "Beresin" },
   "offers": [
-    { "@type": "Offer", "name": "Paket Pelajar", "price": "25000", "priceCurrency": "IDR", "description": "PR, makalah singkat, revisi 1x", "availability": "https://schema.org/InStock" },
-    { "@type": "Offer", "name": "Paket Mahasiswa", "price": "250000", "priceCurrency": "IDR", "description": "Esai, jurnal, laporan praktikum, revisi 2x, cek Turnitin", "availability": "https://schema.org/InStock" },
-    { "@type": "Offer", "name": "Paket PRO", "price": "500000", "priceCurrency": "IDR", "description": "Programming, skripsi, desain, revisi 3x, prioritas", "availability": "https://schema.org/InStock" }
-  ],
-  "shippingDetails": {
-    "@type": "OfferShippingDetails",
-    "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ID" },
-    "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "IDR" },
-    "deliveryTime": {
-      "@type": "ShippingDeliveryTime",
-      "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" },
-      "transitTime": { "@type": "QuantitativeValue", "value": 1, "unitCode": "DAY" }
-    }
-  },
-  "hasMerchantReturnPolicy": {
-    "@type": "MerchantReturnPolicy",
-    "applicableCountry": "ID",
-    "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
-  }
+    ${offerTmpl("Paket Pelajar", "25000", "PR, makalah singkat, revisi 1x")},
+    ${offerTmpl("Paket Mahasiswa", "250000", "Esai, jurnal, laporan praktikum, revisi 2x, cek Turnitin")},
+    ${offerTmpl("Paket PRO", "500000", "Programming, skripsi, desain, revisi 3x, prioritas")}
+  ]
 }
 </script>`;
 }
