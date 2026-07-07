@@ -55,11 +55,11 @@ export default async function handler(req, res) {
       from: `"Form Kontak Beresin" <${process.env.SMTP_EMAIL}>`,
       to: process.env.SMTP_EMAIL,
       replyTo: safeEmailAttr,
-      subject: `[Beresin] Pesan dari ${safeNama}`,
+      subject: `[Beresin Tugas] Pesan dari ${safeNama}`,
       html: `
         <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <div style="background:linear-gradient(135deg,#4f46e5,#7c3aed);padding:24px;border-radius:12px 12px 0 0">
-            <h1 style="color:#fff;margin:0;font-size:20px">Pesan Baru dari Beresin</h1>
+            <h1 style="color:#fff;margin:0;font-size:20px">Pesan Baru dari Beresin Tugas</h1>
           </div>
           <div style="background:#fff;border:1px solid #e5e7eb;padding:24px;border-radius:0 0 12px 12px">
             <table style="width:100%;border-collapse:collapse">
@@ -80,7 +80,7 @@ export default async function handler(req, res) {
             </table>
           </div>
           <p style="text-align:center;font-size:11px;color:#9ca3af;margin-top:16px">
-            Dikirim dari form kontak Beresin
+            Dikirim dari form kontak Beresin Tugas
           </p>
         </div>
       `,

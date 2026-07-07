@@ -19,7 +19,7 @@ const defaultData = {
   beranda: {
     hero: {
       title: "Tugas Menumpuk?",
-      subtitle: "Beresin aja! Platform joki tugas sekolah & kuliah terpercaya. Cepat, berkualitas, nilai aman.",
+      subtitle: "Beresi Tugas aja! Platform joki tugas sekolah & kuliah terpercaya. Cepat, berkualitas, nilai aman.",
       stats: [
         { value: 500, suffix: "+", label: "Tugas Selesai" },
         { value: 98, suffix: "%", label: "Kepuasan" },
@@ -106,7 +106,7 @@ const defaultData = {
       { name: "Maya", role: "Mahasiswi UNPAD", text: "Review jurnalnya lengkap banget, langsung dapat A. Highly recommended!", initials: "MY", gradient: "from-pink-500 to-rose-500" },
     ],
     faq: [
-      { q: "Apa itu Beresin?", a: "Beresin adalah platform jasa bantuan tugas sekolah dan kuliah yang terpercaya." },
+      { q: "Apa itu Beresin Tugas?", a: "Beresin Tugas adalah platform jasa bantuan tugas sekolah dan kuliah yang terpercaya." },
       { q: "Bagaimana cara order?", a: "Hubungi kami via WhatsApp, ceritakan tugasmu, kami akan memberikan penawaran." },
       { q: "Apakah data saya aman?", a: "Tentu! Identitas dan data pribadimu kami jamin kerahasiaannya." },
       { q: "Berapa lama proses pengerjaan?", a: "Tergantung kompleksitas tugas. Rata-rata 1-3 hari. Tugas mendesak bisa 1 hari." },
@@ -190,9 +190,9 @@ const defaultData = {
   },
   tentang: {
     heroTitle: "Kamu punya masalah dengan tugas?",
-    heroSubtitle: "Beresin hadir untuk membantu kamu menyelesaikan tugas sekolah dan kuliah dengan cepat, berkualitas, dan terpercaya.",
+    heroSubtitle: "Beresin Tugas hadir untuk membantu kamu menyelesaikan tugas sekolah dan kuliah dengan cepat, berkualitas, dan terpercaya.",
     story: [
-      "Beresin didirikan oleh Zidan Herlangga pada tahun 2024 dengan misi membantu pelajar dan mahasiswa di Indonesia yang kesulitan menyelesaikan tugas karena keterbatasan waktu, pemahaman, atau sumber daya.",
+      "Beresin Tugas didirikan oleh Zidan Herlangga pada tahun 2024 dengan misi membantu pelajar dan mahasiswa di Indonesia yang kesulitan menyelesaikan tugas karena keterbatasan waktu, pemahaman, atau sumber daya.",
       "Kami percaya setiap siswa berhak mendapatkan nilai terbaik tanpa harus stres dan kelelahan. Tim kami terdiri dari para profesional dan akademisi berpengalaman yang siap membantu tugasmu.",
     ],
     stats: [
@@ -202,8 +202,8 @@ const defaultData = {
       { value: 4.9, suffix: "", label: "Rating" },
     ],
     tim: [
-      { name: "Zidan Herlangga", role: "Founder & Project Manager", photo: "", desc: "Ahli algoritma & pengembangan web. Lulusan Ilmu Komputer.", bio: "Founder Beresin dengan latar belakang Ilmu Komputer.", skills: "React, Node.js, Python, Database, Project Management", education: "S1 Ilmu Komputer", social_ig: "zidanherlangga", social_github: "zidan-herlangga" },
-      { name: "Aldo Moroseto", role: "Lead Developer", photo: "", desc: "Pengelola operasional dan strategi brand Beresin.", bio: "Ahli strategi bisnis dan marketing.", skills: "Digital Marketing, Brand Strategy, Operations, Content Writing", education: "S1 Manajemen Bisnis", social_ig: "aldomoroseto", social_linkedin: "aldo-moroseto" },
+      { name: "Zidan Herlangga", role: "Founder & Project Manager", photo: "", desc: "Ahli algoritma & pengembangan web. Lulusan Ilmu Komputer.", bio: "Founder Beresin Tugas dengan latar belakang Ilmu Komputer.", skills: "React, Node.js, Python, Database, Project Management", education: "S1 Ilmu Komputer", social_ig: "zidanherlangga", social_github: "zidan-herlangga" },
+      { name: "Aldo Moroseto", role: "Lead Developer", photo: "", desc: "Pengelola operasional dan strategi brand Beresin Tugas.", bio: "Ahli strategi bisnis dan marketing.", skills: "Digital Marketing, Brand Strategy, Operations, Content Writing", education: "S1 Manajemen Bisnis", social_ig: "aldomoroseto", social_linkedin: "aldo-moroseto" },
     ],
     values: [
       { title: "Trusted", desc: "Kami mengutamakan kepercayaan. Data pribadimu aman bersama kami." },

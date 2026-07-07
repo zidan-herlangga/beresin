@@ -73,7 +73,7 @@ export default function Footer({ onOpenSyarat }) {
                 className="h-9 w-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
               />
               <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-                Beresin
+                Beresin Tugas
               </span>
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-gray-400 dark:text-gray-500 max-w-xs">

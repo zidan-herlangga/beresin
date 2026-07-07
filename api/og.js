@@ -1,29 +1,38 @@
-import { getCollection } from "./lib/db.js";
+import { getCollection } from './lib/db.js';
 
-const BASE = "https://beresintugas.vercel.app";
+const BASE = 'https://beresintugas.vercel.app';
 const DEFAULT_IMAGE = `${BASE}/og-image.jpg`;
-const FB_APP_ID = "";
+const FB_APP_ID = '';
 
 function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  return String(str).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[
+        c
+      ],
+  );
 }
 
 function optimizeImage(url) {
-  if (!url || !url.includes("res.cloudinary.com")) return url || "";
-  return url.replace("/upload/", "/upload/w_1200,h_630,c_fill,q_auto,f_auto/");
+  if (!url || !url.includes('res.cloudinary.com')) return url || '';
+  return url.replace('/upload/', '/upload/w_1200,h_630,c_fill,q_auto,f_auto/');
 }
 
 function metaTag(property, content) {
-  return content ? `<meta property="${property}" content="${escapeHtml(content)}" />\n` : "";
+  return content
+    ? `<meta property="${property}" content="${escapeHtml(content)}" />\n`
+    : '';
 }
 
 function escapeJson(str) {
-  return String(str).replace(/[\\"]/g, "\\$&").replace(/\n/g, "\\n");
+  return String(str).replace(/[\\"]/g, '\\$&').replace(/\n/g, '\\n');
 }
 
 function jsonLd(path) {
-  if (path !== "/") return "";
-  const offerTmpl = (name, price, desc) => `{ "@type": "Offer", "name": "${name}", "price": "${price}", "priceCurrency": "IDR", "description": "${desc}", "availability": "https://schema.org/InStock", "shippingDetails": { "@type": "OfferShippingDetails", "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ID" }, "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "IDR" }, "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" }, "transitTime": { "@type": "QuantitativeValue", "value": 1, "unitCode": "DAY" } } }, "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "ID", "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted" } }`;
+  if (path !== '/') return '';
+  const offerTmpl = (name, price, desc) =>
+    `{ "@type": "Offer", "name": "${name}", "price": "${price}", "priceCurrency": "IDR", "description": "${desc}", "availability": "https://schema.org/InStock", "shippingDetails": { "@type": "OfferShippingDetails", "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ID" }, "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "IDR" }, "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" }, "transitTime": { "@type": "QuantitativeValue", "value": 1, "unitCode": "DAY" } } }, "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "ID", "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted" } }`;
   return `<script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,36 +40,36 @@ function jsonLd(path) {
   "name": "Jasa Joki Tugas",
   "description": "Jasa pengerjaan tugas sekolah dan kuliah, termasuk makalah, esai, programming, desain, dan riset",
   "image": ["${BASE}/og-image.jpg"],
-  "brand": { "@type": "Brand", "name": "Beresin" },
+  "brand": { "@type": "Brand", "name": "Beresin Tugas" },
   "offers": [
-    ${offerTmpl("Paket Pelajar", "25000", "PR, makalah singkat, revisi 1x")},
-    ${offerTmpl("Paket Mahasiswa", "250000", "Esai, jurnal, laporan praktikum, revisi 2x, cek Turnitin")},
-    ${offerTmpl("Paket PRO", "500000", "Programming, skripsi, desain, revisi 3x, prioritas")}
+    ${offerTmpl('Paket Pelajar', '25000', 'PR, makalah singkat, revisi 1x')},
+    ${offerTmpl('Paket Mahasiswa', '250000', 'Esai, jurnal, laporan praktikum, revisi 2x, cek Turnitin')},
+    ${offerTmpl('Paket PRO', '500000', 'Programming, skripsi, desain, revisi 3x, prioritas')}
   ]
 }
 </script>`;
 }
 
-function html({ title, description, image, url, type = "website" }, path) {
+function html({ title, description, image, url, type = 'website' }, path) {
   return `<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8" />
 <title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(description)}" />
-${metaTag("fb:app_id", FB_APP_ID)}
-${metaTag("og:type", type)}
-${metaTag("og:url", url)}
-${metaTag("og:title", title)}
-${metaTag("og:description", description)}
-${metaTag("og:image", image)}
-${metaTag("og:image:width", "1200")}
-${metaTag("og:image:height", "630")}
-${metaTag("og:site_name", "Beresin - Joki Tugas Sekolah & Kuliah")}
-${metaTag("twitter:card", "summary_large_image")}
-${metaTag("twitter:title", title)}
-${metaTag("twitter:description", description)}
-${metaTag("twitter:image", image)}
+${metaTag('fb:app_id', FB_APP_ID)}
+${metaTag('og:type', type)}
+${metaTag('og:url', url)}
+${metaTag('og:title', title)}
+${metaTag('og:description', description)}
+${metaTag('og:image', image)}
+${metaTag('og:image:width', '1200')}
+${metaTag('og:image:height', '630')}
+${metaTag('og:site_name', 'Beresin Tugas - Joki Tugas Sekolah & Kuliah')}
+${metaTag('twitter:card', 'summary_large_image')}
+${metaTag('twitter:title', title)}
+${metaTag('twitter:description', description)}
+${metaTag('twitter:image', image)}
 ${jsonLd(path)}
 </head>
 <body>
@@ -69,9 +78,35 @@ ${jsonLd(path)}
 }
 
 const BLOG_DATA = [
-  { title: "Tips Mengerjakan Skripsi dalam 3 Bulan", slug: "tips-mengerjakan-skripsi-dalam-3-bulan", tag: "Tips", date: "15 Mar 2026", excerpt: "Panduan praktis menyelesaikan skripsi tepat waktu tanpa stres berlebihan.", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80" },
-  { title: "5 Aplikasi AI yang Bantu Tugas Kuliah", slug: "5-aplikasi-ai-yang-bantu-tugas-kuliah", tag: "Teknologi", date: "10 Feb 2026", excerpt: "Manfaatkan AI untuk membantu riset dan penulisan tugas kuliahmu.", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80" },
-  { title: "Cara Membuat Makalah yang Baik", slug: "cara-membuat-makalah-yang-baik", tag: "Panduan", date: "5 Jan 2026", excerpt: "Struktur dan tips menulis makalah yang benar agar mendapat nilai A.", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80" },
+  {
+    title: 'Tips Mengerjakan Skripsi dalam 3 Bulan',
+    slug: 'tips-mengerjakan-skripsi-dalam-3-bulan',
+    tag: 'Tips',
+    date: '15 Mar 2026',
+    excerpt:
+      'Panduan praktis menyelesaikan skripsi tepat waktu tanpa stres berlebihan.',
+    image:
+      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80',
+  },
+  {
+    title: '5 Aplikasi AI yang Bantu Tugas Kuliah',
+    slug: '5-aplikasi-ai-yang-bantu-tugas-kuliah',
+    tag: 'Teknologi',
+    date: '10 Feb 2026',
+    excerpt: 'Manfaatkan AI untuk membantu riset dan penulisan tugas kuliahmu.',
+    image:
+      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80',
+  },
+  {
+    title: 'Cara Membuat Makalah yang Baik',
+    slug: 'cara-membuat-makalah-yang-baik',
+    tag: 'Panduan',
+    date: '5 Jan 2026',
+    excerpt:
+      'Struktur dan tips menulis makalah yang benar agar mendapat nilai A.',
+    image:
+      'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80',
+  },
 ];
 
 async function findBlog(slug) {
@@ -79,9 +114,9 @@ async function findBlog(slug) {
   if (fromHardcoded) return fromHardcoded;
 
   try {
-    const col = await getCollection("content");
+    const col = await getCollection('content');
     if (col) {
-      const doc = await col.findOne({ page: "beranda" });
+      const doc = await col.findOne({ page: 'beranda' });
       if (doc?.data?.blog) {
         return doc.data.blog.find((a) => a.slug === slug) || null;
       }
@@ -91,39 +126,45 @@ async function findBlog(slug) {
 }
 
 const pageMeta = {
-  "/": {
-    title: "Beresin - Joki Tugas Sekolah & Kuliah Online #1 di Indonesia",
-    description: "Beresin jasa joki tugas sekolah dan kuliah. Cepat, profesional, harga ramah pelajar mulai Rp25.000. Konsultasi gratis via WhatsApp.",
+  '/': {
+    title: 'Beresin Tugas - Joki Tugas Sekolah & Kuliah Online #1 di Indonesia',
+    description:
+      'Beresin Tugas jasa joki tugas sekolah dan kuliah. Cepat, profesional, harga ramah pelajar mulai Rp25.000. Konsultasi gratis via WhatsApp.',
     image: DEFAULT_IMAGE,
     url: BASE,
   },
-  "/tentang": {
-    title: "Tentang Beresin - Jasa Joki Tugas Terpercaya",
-    description: "Kenali lebih dekat Beresin, platform joki tugas sekolah dan kuliah terpercaya di Indonesia.",
+  '/tentang': {
+    title: 'Tentang Beresin Tugas - Jasa Joki Tugas Terpercaya',
+    description:
+      'Kenali lebih dekat Beresin Tugas, platform joki tugas sekolah dan kuliah terpercaya di Indonesia.',
     image: DEFAULT_IMAGE,
     url: `${BASE}/tentang`,
   },
-  "/layanan": {
-    title: "Layanan Joki Tugas - Beresin",
-    description: "Lihat layanan joki tugas sekolah, kuliah, programming, desain, dan riset dari Beresin.",
+  '/layanan': {
+    title: 'Layanan Joki Tugas - Beresin Tugas',
+    description:
+      'Lihat layanan joki tugas sekolah, kuliah, programming, desain, dan riset dari Beresin Tugas.',
     image: DEFAULT_IMAGE,
     url: `${BASE}/layanan`,
   },
-  "/cara-order": {
-    title: "Cara Order Joki Tugas - Beresin",
-    description: "Cara mudah order joki tugas di Beresin. Konsultasi, konfirmasi, proses, selesai!",
+  '/cara-order': {
+    title: 'Cara Order Joki Tugas - Beresin Tugas',
+    description:
+      'Cara mudah order joki tugas di Beresin Tugas. Konsultasi, konfirmasi, proses, selesai!',
     image: DEFAULT_IMAGE,
     url: `${BASE}/cara-order`,
   },
-  "/kontak": {
-    title: "Kontak Beresin - Hubungi Kami",
-    description: "Hubungi Beresin via WhatsApp, email, atau media sosial untuk konsultasi gratis.",
+  '/kontak': {
+    title: 'Kontak Beresin Tugas - Hubungi Kami',
+    description:
+      'Hubungi Beresin Tugas via WhatsApp, email, atau media sosial untuk konsultasi gratis.',
     image: DEFAULT_IMAGE,
     url: `${BASE}/kontak`,
   },
-  "/blog": {
-    title: "Blog Beresin - Tips & Artikel Tugas",
-    description: "Artikel dan tips seputar tugas sekolah, kuliah, dan produktivitas dari Beresin.",
+  '/blog': {
+    title: 'Blog Beresin Tugas - Tips & Artikel Tugas',
+    description:
+      'Artikel dan tips seputar tugas sekolah, kuliah, dan produktivitas dari Beresin Tugas.',
     image: DEFAULT_IMAGE,
     url: `${BASE}/blog`,
   },
@@ -140,22 +181,22 @@ async function getMeta(path) {
         description: article.excerpt || article.title,
         image: optimizeImage(article.image) || DEFAULT_IMAGE,
         url: `${BASE}/blog/${encodeURIComponent(slug)}`,
-        type: "article",
+        type: 'article',
       };
     }
-    return pageMeta["/blog"];
+    return pageMeta['/blog'];
   }
 
-  const meta = pageMeta[path] || pageMeta["/"];
+  const meta = pageMeta[path] || pageMeta['/'];
   return { ...meta, image: optimizeImage(meta.image) };
 }
 
 export default async function handler(req, res) {
   let path = req.query.path || new URL(req.url, BASE).pathname;
-  if (!path || path === "/api/og") path = "/";
-  if (!path.startsWith("/")) path = "/" + path;
+  if (!path || path === '/api/og') path = '/';
+  if (!path.startsWith('/')) path = '/' + path;
 
   const meta = await getMeta(path);
-  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.status(200).send(html(meta, path));
 }
