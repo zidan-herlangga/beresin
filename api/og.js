@@ -17,7 +17,45 @@ function metaTag(property, content) {
   return content ? `<meta property="${property}" content="${escapeHtml(content)}" />\n` : "";
 }
 
-function html({ title, description, image, url, type = "website" }) {
+function escapeJson(str) {
+  return String(str).replace(/[\\"]/g, "\\$&").replace(/\n/g, "\\n");
+}
+
+function jsonLd(path) {
+  if (path !== "/") return "";
+  return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Jasa Joki Tugas",
+  "description": "Jasa pengerjaan tugas sekolah dan kuliah, termasuk makalah, esai, programming, desain, dan riset",
+  "image": ["${BASE}/og-image.jpg"],
+  "brand": { "@type": "Brand", "name": "Beresin" },
+  "offers": [
+    { "@type": "Offer", "name": "Paket Pelajar", "price": "25000", "priceCurrency": "IDR", "description": "PR, makalah singkat, revisi 1x", "availability": "https://schema.org/InStock" },
+    { "@type": "Offer", "name": "Paket Mahasiswa", "price": "250000", "priceCurrency": "IDR", "description": "Esai, jurnal, laporan praktikum, revisi 2x, cek Turnitin", "availability": "https://schema.org/InStock" },
+    { "@type": "Offer", "name": "Paket PRO", "price": "500000", "priceCurrency": "IDR", "description": "Programming, skripsi, desain, revisi 3x, prioritas", "availability": "https://schema.org/InStock" }
+  ],
+  "shippingDetails": {
+    "@type": "OfferShippingDetails",
+    "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ID" },
+    "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "IDR" },
+    "deliveryTime": {
+      "@type": "ShippingDeliveryTime",
+      "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" },
+      "transitTime": { "@type": "QuantitativeValue", "value": 1, "unitCode": "DAY" }
+    }
+  },
+  "hasMerchantReturnPolicy": {
+    "@type": "MerchantReturnPolicy",
+    "applicableCountry": "ID",
+    "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+  }
+}
+</script>`;
+}
+
+function html({ title, description, image, url, type = "website" }, path) {
   return `<!DOCTYPE html>
 <html lang="id">
 <head>
@@ -37,6 +75,7 @@ ${metaTag("twitter:card", "summary_large_image")}
 ${metaTag("twitter:title", title)}
 ${metaTag("twitter:description", description)}
 ${metaTag("twitter:image", image)}
+${jsonLd(path)}
 </head>
 <body>
 </body>
@@ -132,5 +171,5 @@ export default async function handler(req, res) {
 
   const meta = await getMeta(path);
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  res.status(200).send(html(meta));
+  res.status(200).send(html(meta, path));
 }
