@@ -1,7 +1,17 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Svg from './Svg';
 import { icons } from './constants';
 import RichEditor from '../RichEditor';
+
+function slugify(str) {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
 
 export default function ItemCard({
   item,
@@ -27,6 +37,19 @@ export default function ItemCard({
   };
 
   const title = item?.title || item?.name || item?.nama || item?.label || `Item ${index + 1}`;
+
+  const handleFieldChange = useCallback((field, value) => {
+    const updated = { ...item, [field.key]: value };
+    const slugFor = fields.find((f) => f.slugify === field.key);
+    if (slugFor) {
+      const generated = slugify(value);
+      const prevSlug = item[slugFor.key];
+      if (!prevSlug || slugify(item.title || '') === prevSlug) {
+        updated[slugFor.key] = generated;
+      }
+    }
+    onChange(index, updated, fields);
+  }, [item, fields, onChange, index]);
 
   return (
     <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl overflow-hidden transition-all hover:border-white/[0.1]">
@@ -83,14 +106,7 @@ export default function ItemCard({
                         <input
                           type="url"
                           value={val || ''}
-                          onChange={(e) => {
-                            const updated = [...fields];
-                            onChange(
-                              index,
-                              { ...item, [f.key]: e.target.value },
-                              updated,
-                            );
-                          }}
+                          onChange={(e) => handleFieldChange(f, e.target.value)}
                           placeholder={f.placeholder || 'https://...'}
                           className="flex-1 px-3 py-1.5 bg-black/40 border border-white/[0.07] rounded-lg text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition-colors"
                         />
@@ -100,7 +116,7 @@ export default function ItemCard({
                 ) : f.type === 'richtext' ? (
                   <RichEditor
                     value={val}
-                    onChange={(content) => onChange(index, { ...item, [f.key]: content }, fields)}
+                    onChange={(content) => handleFieldChange(f, content)}
                     label={f.label}
                     placeholder={f.placeholder}
                   />
@@ -109,7 +125,7 @@ export default function ItemCard({
                     <label className="block text-xs font-medium text-gray-400 mb-1">{f.label}</label>
                     <textarea
                       value={val || ''}
-                      onChange={(e) => onChange(index, { ...item, [f.key]: e.target.value }, fields)}
+                      onChange={(e) => handleFieldChange(f, e.target.value)}
                       rows={f.rows || 3}
                       placeholder={f.placeholder}
                       className="w-full px-3 py-2 bg-black/40 border border-white/[0.07] rounded-lg text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition-colors resize-y"
@@ -121,7 +137,7 @@ export default function ItemCard({
                     <input
                       type={f.type || 'text'}
                       value={val || ''}
-                      onChange={(e) => onChange(index, { ...item, [f.key]: e.target.value }, fields)}
+                      onChange={(e) => handleFieldChange(f, e.target.value)}
                       placeholder={f.placeholder}
                       className="w-full px-3 py-2 bg-black/40 border border-white/[0.07] rounded-lg text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition-colors"
                     />

@@ -8,12 +8,12 @@ import Field from '../Field';
 const blogFields = [
   { key: 'image', label: 'Gambar', type: 'image' },
   { key: 'title', label: 'Judul', type: 'text' },
-  { key: 'slug', label: 'Slug', type: 'text', placeholder: 'contoh-judul' },
+  { key: 'slug', label: 'Slug', type: 'text', placeholder: 'otomatis dari judul', slugify: 'title' },
   { key: 'desc', label: 'Deskripsi', type: 'textarea', rows: 2 },
   { key: 'content', label: 'Konten (HTML)', type: 'richtext' },
   { key: 'tag', label: 'Tag', type: 'text', placeholder: 'Tips, Teknologi, Panduan' },
   { key: 'date', label: 'Tanggal', type: 'text', placeholder: '13 Mar 2025' },
-  { key: 'author', label: 'Penulis', type: 'text', placeholder: 'Admin' },
+  { key: 'author', label: 'Penulis (opsional)', type: 'text', placeholder: 'Admin' },
 ];
 
 const featureFields = [
