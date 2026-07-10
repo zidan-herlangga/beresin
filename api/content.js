@@ -490,6 +490,22 @@ const defaultData = {
 
 export { defaultData };
 
+function deepMerge(defaults, saved) {
+  const out = { ...defaults };
+  if (!saved || typeof saved !== 'object') return out;
+  for (const key of Object.keys(saved)) {
+    if (
+      saved[key] && typeof saved[key] === 'object' && !Array.isArray(saved[key]) &&
+      out[key] && typeof out[key] === 'object' && !Array.isArray(out[key])
+    ) {
+      out[key] = { ...out[key], ...saved[key] };
+    } else {
+      out[key] = saved[key];
+    }
+  }
+  return out;
+}
+
 export default async function handler(req, res) {
   const page = req.query.page || req.body?.page;
 
@@ -502,7 +518,8 @@ export default async function handler(req, res) {
     if (col) {
       const doc = await col.findOne({ page });
       if (doc?.data) {
-        return res.status(200).json({ page, data: doc.data, fromDb: true });
+        const merged = deepMerge(defaultData[page], doc.data);
+        return res.status(200).json({ page, data: merged, fromDb: true });
       }
     }
     return res
