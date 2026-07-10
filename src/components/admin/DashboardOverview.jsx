@@ -43,7 +43,7 @@ export default function DashboardOverview({ onNavigate }) {
         );
         if (cancelled) return;
         const merged = {};
-        res.forEach((j) => Object.assign(merged, j.data));
+        res.forEach((j) => { merged[j.page] = j.data; });
         setStats(calculateStats(merged));
       } catch {
         if (!cancelled) setStats({});
