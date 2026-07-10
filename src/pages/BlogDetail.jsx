@@ -75,7 +75,7 @@ export default function BlogDetail() {
 
   useMeta({
     title: a?.title,
-    description: a?.excerpt,
+    description: a?.desc || a?.excerpt,
     image: a?.image,
     url: pageUrl,
     type: 'article',
@@ -104,8 +104,46 @@ export default function BlogDetail() {
   ) : 0;
 
   if (!a) return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-28 pb-16 flex items-center justify-center">
-      <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-28 pb-16">
+      <div className="absolute inset-0 bg-[var(--bg-grid-pattern)] dark:bg-[var(--bg-grid-pattern-dark)]" />
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 animate-pulse">
+        <div className="flex items-center gap-2 mb-6">
+          <div className="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-3 w-3 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-3 w-10 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-3 w-3 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-3 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
+        </div>
+        <div className="w-full aspect-[2/1] sm:aspect-[2.4/1] rounded-2xl mb-8 bg-gray-200 dark:bg-gray-700" />
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-5 w-16 bg-gray-200 dark:bg-gray-700 rounded-full" />
+          <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
+        </div>
+        <div className="h-10 w-3/4 bg-gray-200 dark:bg-gray-700 rounded-lg mb-4" />
+        <div className="space-y-2 mb-6">
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded" />
+        </div>
+        <div className="flex items-center gap-3 pb-6 border-b border-gray-200 dark:border-gray-700/50 mb-8">
+          <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700" />
+          <div className="space-y-1">
+            <div className="h-3 w-28 bg-gray-200 dark:bg-gray-700 rounded" />
+            <div className="h-2.5 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
+          </div>
+        </div>
+        <div className="space-y-3">
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-11/12 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-4 w-4/5 bg-gray-200 dark:bg-gray-700 rounded" />
+        </div>
+      </div>
     </main>
   );
 

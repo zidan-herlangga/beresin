@@ -40,7 +40,7 @@ export default function Blog() {
           slug: a.slug || def.slug || "",
           tag: a.tag || def.tag,
           date: a.date || def.date,
-          excerpt: a.excerpt || def.excerpt,
+          excerpt: a.desc || a.excerpt || def.excerpt,
           image: a.image || def.image || "",
         };
       })

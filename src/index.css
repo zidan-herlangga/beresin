@@ -227,8 +227,8 @@ h1, h2, h3, h4, h5, h6 {
 .blog-content img {
   border-radius: 0.75rem;
   margin: 1.5rem auto;
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  aspect-ratio: auto 16 / 9;
   display: block;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }

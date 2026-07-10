@@ -25,7 +25,7 @@ async function start() {
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use(cors({ origin: true, credentials: false }));
   app.use("/api/contact", rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: { error: "Terlalu banyak permintaan" } }));
-  app.use("/api/admin", rateLimit({ windowMs: 15 * 60 * 1000, max: 20, message: { error: "Terlalu banyak permintaan" } }));
+  const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20, message: { error: "Terlalu banyak permintaan" } });
   app.use(express.json({ limit: "5mb" }));
 
   // serve uploaded files
@@ -38,9 +38,10 @@ async function start() {
   const verifyHandler = await loadHandler("api/admin/verify.js");
   const contentHandler = await loadHandler("api/content.js");
   const seedHandler = await loadHandler("api/seed.js");
+  const viewsHandler = await loadHandler("api/views.js");
 
   app.post("/api/contact", (req, res) => contactHandler(req, res));
-  app.post("/api/admin/login", (req, res) => loginHandler(req, res));
+  app.post("/api/admin/login", loginLimiter, (req, res) => loginHandler(req, res));
   app.get("/api/admin/verify", (req, res) => verifyHandler(req, res));
   app.post("/api/seed", (req, res) => seedHandler(req, res));
 
@@ -52,6 +53,8 @@ async function start() {
   app.all("/api/content", (req, res) => {
     contentHandler(req, res);
   });
+
+  app.all("/api/views", (req, res) => viewsHandler(req, res));
 
   app.post("/api/upload", (req, res) => {
     const auth = req.headers.authorization;

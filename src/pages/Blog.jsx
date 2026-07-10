@@ -37,7 +37,7 @@ export default function BlogPage() {
   const apiArticles = content?.blog;
   const allArticles = apiArticles
     ? apiArticles.map((a) => ({
-        title: a.title, slug: a.slug, tag: a.tag, date: a.date, excerpt: a.excerpt, image: a.image,
+        title: a.title, slug: a.slug, tag: a.tag, date: a.date, excerpt: a.desc || a.excerpt, image: a.image,
       }))
     : defaultArticles;
 

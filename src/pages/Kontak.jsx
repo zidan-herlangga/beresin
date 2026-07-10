@@ -66,9 +66,9 @@ export default function Kontak() {
     ? apiContacts.map((c, i) => {
         const def = defaultContacts[i] || {};
         return {
-          label: c.label || def.label,
+          label: c.title || c.label || def.label,
           value: c.value || def.value,
-          href: c.href || def.href,
+          href: c.link || c.href || def.href,
           gradient: def.gradient,
           icon: def.icon,
         };

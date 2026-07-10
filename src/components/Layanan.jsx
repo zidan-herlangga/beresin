@@ -66,14 +66,14 @@ const bentoGrid = [
 
 export default function Layanan() {
   const { data: content } = useContent("beranda");
-  const apiServices = content?.layanan;
+  const apiServices = content?.features;
   const services = apiServices
     ? apiServices.map((s, i) => {
         const def = defaultServices[i] || {};
         return {
           title: s.title || def.title,
-          desc: def.desc || `Layanan ${s.title}`,
-          items: s.items || def.items,
+          desc: s.desc || def.desc,
+          items: def.items,
           color: def.color,
           gradient: def.gradient,
           bg: def.bg,

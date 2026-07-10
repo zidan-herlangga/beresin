@@ -180,7 +180,7 @@ export default function Layanan() {
         return {
           title: c.title || def.title,
           desc: def.desc,
-          items: c.services || def.items,
+          items: c.services ? c.services.map((s) => (typeof s === 'string' ? s : s.name)) : def.items,
           icon: def.icon,
           gradient: def.gradient,
           bg: def.bg,

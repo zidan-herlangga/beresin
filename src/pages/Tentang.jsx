@@ -113,10 +113,10 @@ export default function Tentang() {
                 Kenapa Beresin?
               </h2>
               <p className="mt-4 text-gray-500 dark:text-gray-400 leading-relaxed">
-                {about?.story?.[0] || "Awalnya kita sadar banyak temen-temen yang stres banget sama tugas yang numpuk. Deadline mepet, bingung, pusing. Makanya kita bikin Beresin — biar semua bisa di\"beresin\" tanpa drama."}
+                {about?.story?.[0]?.text || about?.story?.[0] || "Awalnya kita sadar banyak temen-temen yang stres banget sama tugas yang numpuk. Deadline mepet, bingung, pusing. Makanya kita bikin Beresin — biar semua bisa di\"beresin\" tanpa drama."}
               </p>
               <p className="mt-3 text-gray-500 dark:text-gray-400 leading-relaxed">
-                {about?.story?.[1] || "Setiap tugas dikerjain tim ahli yang udah terverifikasi. Kita juga kasih garansi revisi gratis sampai kamu puas. Pokoknya, kamu tinggal duduk manis, tugas beres!"}
+                {about?.story?.[1]?.text || about?.story?.[1] || "Setiap tugas dikerjain tim ahli yang udah terverifikasi. Kita juga kasih garansi revisi gratis sampai kamu puas. Pokoknya, kamu tinggal duduk manis, tugas beres!"}
               </p>
             </div>
             <div ref={ref} className="grid grid-cols-2 gap-4">
