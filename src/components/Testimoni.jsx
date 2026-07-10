@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useInView from '../hooks/useInView';
 
 const testimonials = [
@@ -42,12 +42,6 @@ const testimonials = [
 export default function Testimoni() {
   const [active, setActive] = useState(0);
   const [ref, inView] = useInView({ threshold: 0.1 });
-  const scrollRef = useRef(null);
-
-  const handleThumbClick = (i) => {
-    setActive(i);
-    scrollRef.current?.scrollTo({ left: i * 120, behavior: 'smooth' });
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {

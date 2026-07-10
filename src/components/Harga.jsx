@@ -136,7 +136,7 @@ export default function Harga() {
               <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{plan.desc}</p>
 
               <ul className="mt-6 space-y-2.5">
-                {plan.features.map((f, i) => (
+                {plan.features.map((f) => (
                   <li key={f} className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
                     <span className="flex items-center justify-center w-4 h-4 rounded-full bg-indigo-50 dark:bg-indigo-950/50 shrink-0">
                       <svg className="w-2.5 h-2.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

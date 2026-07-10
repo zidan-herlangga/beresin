@@ -1,6 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
-const ThemeContext = createContext();
+import { useEffect, useState } from "react";
+import { ThemeContext } from "./theme";
 
 export function ThemeProvider({ children }) {
   const [dark, setDark] = useState(() => {
@@ -27,8 +26,4 @@ export function ThemeProvider({ children }) {
       {children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  return useContext(ThemeContext);
 }

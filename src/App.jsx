@@ -30,7 +30,7 @@ const Admin = lazy(() => import("./pages/Admin"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const BlogPage = lazy(() => import("./pages/Blog"));
 
-function HomePage({ onOpenSyarat }) {
+function HomePage({ onOpenSyarat: _onOpenSyarat }) {
   return (
     <>
       <Hero />

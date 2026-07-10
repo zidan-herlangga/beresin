@@ -25,10 +25,6 @@ function metaTag(property, content) {
     : '';
 }
 
-function escapeJson(str) {
-  return String(str).replace(/[\\"]/g, '\\$&').replace(/\n/g, '\\n');
-}
-
 function jsonLd(path) {
   if (path !== '/') return '';
   const offerTmpl = (name, price, desc) =>
