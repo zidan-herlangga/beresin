@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Svg from './Svg';
 import { icons } from './constants';
+import RichEditor from '../RichEditor';
 
 export default function ItemCard({
   item,
@@ -96,6 +97,13 @@ export default function ItemCard({
                       </div>
                     </div>
                   </div>
+                ) : f.type === 'richtext' ? (
+                  <RichEditor
+                    value={val}
+                    onChange={(content) => onChange(index, { ...item, [f.key]: content }, fields)}
+                    label={f.label}
+                    placeholder={f.placeholder}
+                  />
                 ) : f.type === 'textarea' ? (
                   <div>
                     <label className="block text-xs font-medium text-gray-400 mb-1">{f.label}</label>
